@@ -63,9 +63,9 @@ Prefer free approach first (dedicated Settings page or CPT). Use ACF Options onl
 1. Frontend foundation — done  
 2. WordPress environment — done (Docker + WPGraphQL + ACF + WPGraphQL for ACF)  
 3. Connect Next.js → simple GraphQL fetch — done  
-4. Service CPT + `/services` routes — in progress  
-5. Homepage sections  
-6. About  
+4. Service CPT + `/services` routes — done  
+5. Homepage sections — done (CMS `homeFields` + dynamic services)  
+6. About — done (CMS `aboutFields` → `/about`)  
 7. Contact + form  
 8. Campaign CPT + `/campaigns/[slug]`  
 9. SEO metadata  

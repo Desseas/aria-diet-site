@@ -1,5 +1,7 @@
 import { fetchGraphQL } from "@/lib/wordpress/graphql";
 import type {
+  GetAboutPageResult,
+  GetHomePageResult,
   GetPagesResult,
   GetServiceBySlugResult,
   GetServicesResult,
@@ -12,7 +14,7 @@ import type {
  *
  * In WPGraphQL, lists often come back as `nodes` — each item in the connection.
  * Custom post types appear after `show_in_graphql` + graphql single/plural names.
- * ACF fields appear under the field group name (here: `serviceDetails`) when Show in GraphQL is on.
+ * ACF fields appear under the field group name when Show in GraphQL is on.
  */
 export const GET_SITE_SETTINGS = /* GraphQL */ `
   query GetSiteSettings {
@@ -43,6 +45,93 @@ const MEDIA_FIELDS = /* GraphQL */ `
     mediaDetails {
       width
       height
+    }
+  }
+`;
+
+export const GET_HOME_PAGE = /* GraphQL */ `
+  query GetHomePage {
+    page(id: "home", idType: URI) {
+      title
+      homeFields {
+        heroEyebrow
+        heroTitle
+        heroDescription
+        heroPrimaryLabel
+        heroPrimaryUrl
+        heroSecondaryLabel
+        heroSecondaryUrl
+        heroImage {
+          ${MEDIA_FIELDS}
+        }
+        aboutEyebrow
+        aboutTitle
+        aboutText
+        aboutImage {
+          ${MEDIA_FIELDS}
+        }
+        aboutButtonLabel
+        aboutButtonUrl
+        servicesEyebrow
+        servicesTitle
+        servicesIntro
+        approachTitle
+        approachContent
+        approachImage {
+          ${MEDIA_FIELDS}
+        }
+        philosophyTitle
+        philosophyContent
+        philosophyImage {
+          ${MEDIA_FIELDS}
+        }
+        philosophyCtaLabel
+        philosophyCtaUrl
+        quoteText
+        faq
+        ctaTitle
+        ctaDescription
+        ctaButtonLabel
+        ctaButtonUrl
+        instagramTitle
+        instagramText
+        instagramButtonLabel
+        instagramUrl
+        seoTitle
+        seoDescription
+      }
+    }
+  }
+`;
+
+export const GET_ABOUT_PAGE = /* GraphQL */ `
+  query GetAboutPage {
+    page(id: "about", idType: URI) {
+      title
+      aboutFields {
+        heroEyebrow
+        heroTitle
+        heroDescription
+        heroImage {
+          ${MEDIA_FIELDS}
+        }
+        biographyTitle
+        biographyContent
+        philosophyTitle
+        philosophyContent
+        qualifications
+        approachTitle
+        approachContent
+        lifestyleImage {
+          ${MEDIA_FIELDS}
+        }
+        ctaTitle
+        ctaDescription
+        ctaButtonLabel
+        ctaButtonUrl
+        seoTitle
+        seoDescription
+      }
     }
   }
 `;
@@ -109,6 +198,18 @@ export function getSiteSettings() {
 export function getPages() {
   return fetchGraphQL<GetPagesResult>(GET_PAGES, undefined, {
     tags: ["wordpress", "pages"],
+  });
+}
+
+export function getHomePage() {
+  return fetchGraphQL<GetHomePageResult>(GET_HOME_PAGE, undefined, {
+    tags: ["wordpress", "home"],
+  });
+}
+
+export function getAboutPage() {
+  return fetchGraphQL<GetAboutPageResult>(GET_ABOUT_PAGE, undefined, {
+    tags: ["wordpress", "about"],
   });
 }
 
