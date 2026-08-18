@@ -52,6 +52,12 @@ function resolveFromPostType(postType: string, slug?: string) {
       if (slug === "contact") {
         tags.add("contact");
         paths.add("/contact");
+        // Header/footer live in the shared (site) layout — refresh it everywhere.
+        paths.add("/");
+        paths.add("/about");
+        paths.add("/services");
+        paths.add("/privacy");
+        paths.add("/cookies");
       }
       if (slug === "privacy") {
         tags.add("legal");
@@ -157,7 +163,10 @@ export async function POST(request: Request) {
   }
 
   for (const path of paths) {
-    if (tags.includes("theme") && path === "/") {
+    if (
+      (tags.includes("theme") || tags.includes("contact")) &&
+      path === "/"
+    ) {
       revalidatePath(path, "layout");
     } else {
       revalidatePath(path);
