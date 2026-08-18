@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { SocialIconLinks } from "@/components/ui/SocialIconLinks";
 import { mainNav, siteBrand } from "@/lib/navigation";
 import type { SiteContact } from "@/lib/wordpress/types";
 
@@ -17,9 +18,23 @@ export function Footer({ contact }: FooterProps) {
   const phone = contact?.phone?.trim() || "";
   const email = contact?.email?.trim() || "";
   const address = contact?.address?.trim() || "";
-  const instagramUrl = contact?.instagramUrl?.trim() || "";
-  const facebookUrl = contact?.facebookUrl?.trim() || "";
-  const tiktokUrl = contact?.tiktokUrl?.trim() || "";
+  const socialLinks = [
+    {
+      network: "instagram" as const,
+      href: contact?.instagramUrl?.trim() || "",
+      label: "Instagram",
+    },
+    {
+      network: "facebook" as const,
+      href: contact?.facebookUrl?.trim() || "",
+      label: "Facebook",
+    },
+    {
+      network: "tiktok" as const,
+      href: contact?.tiktokUrl?.trim() || "",
+      label: "TikTok",
+    },
+  ];
 
   return (
     <footer className="mt-auto border-t border-border bg-surface">
@@ -34,6 +49,7 @@ export function Footer({ contact }: FooterProps) {
               {address}
             </p>
           ) : null}
+          <SocialIconLinks links={socialLinks} className="mt-5" />
         </div>
 
         <div>
@@ -71,42 +87,6 @@ export function Footer({ contact }: FooterProps) {
                 Στοιχεία επικοινωνίας
               </Link>
             </li>
-            {instagramUrl ? (
-              <li>
-                <a
-                  href={instagramUrl}
-                  className="hover:text-accent"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Instagram
-                </a>
-              </li>
-            ) : null}
-            {facebookUrl ? (
-              <li>
-                <a
-                  href={facebookUrl}
-                  className="hover:text-accent"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Facebook
-                </a>
-              </li>
-            ) : null}
-            {tiktokUrl ? (
-              <li>
-                <a
-                  href={tiktokUrl}
-                  className="hover:text-accent"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  TikTok
-                </a>
-              </li>
-            ) : null}
           </ul>
         </div>
       </Container>
