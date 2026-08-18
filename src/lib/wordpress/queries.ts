@@ -1,4 +1,5 @@
 import { fetchGraphQL } from "@/lib/wordpress/graphql";
+import { withContactPlaceholders } from "@/lib/contact-defaults";
 import type {
   GetAboutPageResult,
   GetCampaignBySlugResult,
@@ -316,19 +317,25 @@ export async function getSiteContact(): Promise<SiteContact> {
   try {
     const data = await getContactPage();
     const fields = data.page?.contactFields;
+    const filled = withContactPlaceholders({
+      phone: fields?.phone,
+      email: fields?.email,
+      address: fields?.officeAddress,
+    });
     return {
-      phone: fields?.phone?.trim() || "",
-      email: fields?.email?.trim() || "",
-      address: fields?.officeAddress?.trim() || "",
+      phone: filled.phone,
+      email: filled.email,
+      address: filled.address,
       instagramUrl: fields?.instagramUrl?.trim() || "",
       facebookUrl: fields?.facebookUrl?.trim() || "",
       whatsappUrl: fields?.whatsappUrl?.trim() || "",
     };
   } catch {
+    const filled = withContactPlaceholders({});
     return {
-      phone: "",
-      email: "",
-      address: "",
+      phone: filled.phone,
+      email: filled.email,
+      address: filled.address,
       instagramUrl: "",
       facebookUrl: "",
       whatsappUrl: "",

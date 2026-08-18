@@ -10,13 +10,15 @@ import type { SiteContact } from "@/lib/wordpress/types";
 type MobileMenuProps = {
   open: boolean;
   onClose: () => void;
+  phone?: string;
+  email?: string;
 };
 
 type HeaderProps = {
   contact?: SiteContact;
 };
 
-export function MobileMenu({ open, onClose }: MobileMenuProps) {
+export function MobileMenu({ open, onClose, phone = "", email = "" }: MobileMenuProps) {
   const titleId = useId();
   const pathname = usePathname();
 
@@ -86,7 +88,25 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           })}
         </nav>
 
-        <div className="border-t border-border p-5">
+        <div className="border-t border-border p-5 space-y-3">
+          {phone ? (
+            <a
+              href={`tel:${phone.replace(/\s/g, "")}`}
+              className="block text-sm font-medium text-accent"
+              onClick={onClose}
+            >
+              {phone}
+            </a>
+          ) : null}
+          {email ? (
+            <a
+              href={`mailto:${email}`}
+              className="block text-sm font-medium text-accent"
+              onClick={onClose}
+            >
+              {email}
+            </a>
+          ) : null}
           <Button href={siteBrand.ctaHref} className="w-full" onClick={onClose}>
             {siteBrand.ctaLabel}
           </Button>
@@ -174,7 +194,12 @@ export function Header({ contact }: HeaderProps) {
       </div>
 
       <div id="mobile-menu">
-        <MobileMenu open={open} onClose={() => setOpen(false)} />
+        <MobileMenu
+          open={open}
+          onClose={() => setOpen(false)}
+          phone={phone}
+          email={email}
+        />
       </div>
     </header>
   );

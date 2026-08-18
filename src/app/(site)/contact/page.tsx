@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
+import {
+  CONTACT_PLACEHOLDERS,
+  withContactPlaceholders,
+} from "@/lib/contact-defaults";
 import { resolveHeroImage } from "@/lib/hero-fallbacks";
 import { buildPageMetadata } from "@/lib/seo";
 import { linesFromTextarea, resolveWpImage } from "@/lib/wordpress/content";
@@ -47,24 +51,26 @@ export default async function ContactPage() {
 
   const title = fields?.introTitle?.trim() || page.title;
   const hours = linesFromTextarea(fields?.openingHours);
+  const displayHours =
+    hours.length > 0 ? hours : [...CONTACT_PLACEHOLDERS.openingHours];
+  const { phone, email, address } = withContactPlaceholders({
+    phone: fields?.phone,
+    email: fields?.email,
+    address: fields?.officeAddress,
+  });
 
-  const methods: ContactMethod[] = [];
-
-  if (fields?.phone?.trim()) {
-    methods.push({
+  const methods: ContactMethod[] = [
+    {
       label: "Τηλέφωνο",
-      value: fields.phone.trim(),
-      href: `tel:${fields.phone.replace(/\s/g, "")}`,
-    });
-  }
-
-  if (fields?.email?.trim()) {
-    methods.push({
+      value: phone,
+      href: `tel:${phone.replace(/\s/g, "")}`,
+    },
+    {
       label: "Email",
-      value: fields.email.trim(),
-      href: `mailto:${fields.email.trim()}`,
-    });
-  }
+      value: email,
+      href: `mailto:${email}`,
+    },
+  ];
 
   if (fields?.whatsappUrl?.trim()) {
     methods.push({
@@ -112,68 +118,57 @@ export default async function ContactPage() {
               Τρόποι επικοινωνίας
             </h2>
 
-            {methods.length === 0 ? (
-              <p className="mt-6 text-muted">
-                Τα στοιχεία επικοινωνίας θα εμφανιστούν εδώ μόλις συμπληρωθούν στο WordPress
-                (Σελίδες → Επικοινωνία).
-              </p>
-            ) : (
-              <ul className="mt-8 divide-y divide-border border-y border-border">
-                {methods.map((method) => (
-                  <li
-                    key={method.label}
-                    className="flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
-                  >
-                    <span className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
-                      {method.label}
-                    </span>
-                    {method.external ? (
-                      <a
-                        href={method.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-base text-foreground transition-colors hover:text-accent sm:text-right"
-                      >
-                        {method.value}
-                      </a>
-                    ) : (
-                      <a
-                        href={method.href}
-                        className="text-base text-foreground transition-colors hover:text-accent sm:text-right"
-                      >
-                        {method.value}
-                      </a>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            )}
+            <ul className="mt-8 divide-y divide-border border-y border-border">
+              {methods.map((method) => (
+                <li
+                  key={method.label}
+                  className="flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                >
+                  <span className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
+                    {method.label}
+                  </span>
+                  {method.external ? (
+                    <a
+                      href={method.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-base text-foreground transition-colors hover:text-accent sm:text-right"
+                    >
+                      {method.value}
+                    </a>
+                  ) : (
+                    <a
+                      href={method.href}
+                      className="text-base text-foreground transition-colors hover:text-accent sm:text-right"
+                    >
+                      {method.value}
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
 
           <aside className="space-y-8">
-            {fields?.officeAddress?.trim() ? (
-              <div>
-                <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
-                  Διεύθυνση
-                </h2>
-                <p className="mt-3 whitespace-pre-line text-base leading-relaxed text-foreground">
-                  {fields.officeAddress.trim()}
-                </p>
-              </div>
-            ) : null}
+            <div>
+              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
+                Διεύθυνση
+              </h2>
+              <p className="mt-3 whitespace-pre-line text-base leading-relaxed text-foreground">
+                {address}
+              </p>
+            </div>
 
-            {hours.length > 0 ? (
-              <div>
-                <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
-                  Ώρες
-                </h2>
-                <ul className="mt-3 space-y-2 text-base text-foreground">
-                  {hours.map((line) => (
-                    <li key={line}>{line}</li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
+            <div>
+              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
+                Ώρες
+              </h2>
+              <ul className="mt-3 space-y-2 text-base text-foreground">
+                {displayHours.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            </div>
           </aside>
         </Container>
       </section>
