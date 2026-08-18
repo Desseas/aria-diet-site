@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+:root {
+  /* Matched to klifes.gr visual language */
+  --background: #ffffff;
+  --surface: #ffffff;
+  --surface-muted: #f7f1ee;
+  --pattern: #f4ece8;
+  --text: #333333;
+  --text-muted: rgba(47, 56, 84, 0.55);
+  --accent: #891405;
+  --accent-hover: #6e1004;
+  --accent-soft: #ffe2e2;
+  --accent-bright: #e1306c;
+  --nav: #cbb9a8;
+  --nav-active: #d8c7b8;
+  --nav-text: #ffffff;
+  --border: #e8ddd7;
+  --focus: #891405;
+  --hero-overlay: rgba(40, 28, 24, 0.42);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-pattern: var(--pattern);
+  --color-foreground: var(--text);
+  --color-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-bright: var(--accent-bright);
+  --color-nav: var(--nav);
+  --color-nav-active: var(--nav-active);
+  --color-nav-text: var(--nav-text);
+  --color-border: var(--border);
+  --color-hero-overlay: var(--hero-overlay);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.bg-geo-pattern {
+  background-color: var(--pattern);
+  background-image:
+    linear-gradient(135deg, transparent 24%, rgba(203, 185, 168, 0.28) 25%, rgba(203, 185, 168, 0.28) 26%, transparent 27%, transparent 74%, rgba(203, 185, 168, 0.28) 75%, rgba(203, 185, 168, 0.28) 76%, transparent 77%),
+    linear-gradient(45deg, transparent 24%, rgba(137, 20, 5, 0.04) 25%, rgba(137, 20, 5, 0.04) 26%, transparent 27%, transparent 74%, rgba(137, 20, 5, 0.04) 75%, rgba(137, 20, 5, 0.04) 76%, transparent 77%);
+  background-size: 42px 42px;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
