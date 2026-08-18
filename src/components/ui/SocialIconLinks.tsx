@@ -40,7 +40,7 @@ type SocialIconLinksProps = {
   links: SocialIconLink[];
   className?: string;
   tone?: keyof typeof toneClass;
-  size?: "md" | "lg";
+  size?: "md" | "lg" | "xl";
 };
 
 export function SocialIconLinks({
@@ -52,12 +52,14 @@ export function SocialIconLinks({
   const visible = links.filter((link) => link.href.trim().length > 0);
   if (visible.length === 0) return null;
 
-  const sizeClass = size === "lg" ? "h-12 w-12" : "h-10 w-10";
-  const iconSize = size === "lg" ? 20 : 18;
+  const sizeClass =
+    size === "xl" ? "h-16 w-16 sm:h-[4.5rem] sm:w-[4.5rem]" : size === "lg" ? "h-12 w-12" : "h-10 w-10";
+  const iconSize = size === "xl" ? 28 : size === "lg" ? 20 : 18;
+  const gapClass = size === "xl" ? "gap-4" : "gap-2.5";
 
   return (
     <ul
-      className={`flex flex-wrap items-center justify-center gap-2.5 ${className}`.trim()}
+      className={`flex flex-wrap items-center justify-center ${gapClass} ${className}`.trim()}
     >
       {visible.map((link) => (
         <li key={link.network}>

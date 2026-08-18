@@ -32,7 +32,7 @@ export function SocialCta({ title, text, links = [] }: SocialCtaProps) {
         <SocialIconLinks
           links={visibleLinks}
           tone="onDark"
-          size="lg"
+          size="xl"
           className="mt-8"
         />
       </div>
