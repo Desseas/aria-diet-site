@@ -147,15 +147,18 @@ export default async function HomePage() {
         text={fields?.instagramText}
         links={[
           {
-            label: fields?.instagramButtonLabel?.trim() || "Instagram",
+            network: "instagram",
+            label: "Instagram",
             href: resolveSocialUrl(fields?.instagramUrl, contact.instagramUrl),
           },
           {
-            label: fields?.facebookButtonLabel?.trim() || "Facebook",
+            network: "facebook",
+            label: "Facebook",
             href: resolveSocialUrl(fields?.facebookUrl, contact.facebookUrl),
           },
           {
-            label: fields?.tiktokButtonLabel?.trim() || "TikTok",
+            network: "tiktok",
+            label: "TikTok",
             href: resolveSocialUrl(fields?.tiktokUrl, contact.tiktokUrl),
           },
         ]}

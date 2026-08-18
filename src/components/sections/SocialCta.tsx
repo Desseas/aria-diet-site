@@ -1,14 +1,12 @@
-import { Button } from "@/components/ui/Button";
-
-export type SocialLink = {
-  label: string;
-  href: string;
-};
+import {
+  SocialIconLinks,
+  type SocialIconLink,
+} from "@/components/ui/SocialIconLinks";
 
 type SocialCtaProps = {
   title?: string | null;
   text?: string | null;
-  links?: SocialLink[];
+  links?: SocialIconLink[];
 };
 
 export function SocialCta({ title, text, links = [] }: SocialCtaProps) {
@@ -31,15 +29,12 @@ export function SocialCta({ title, text, links = [] }: SocialCtaProps) {
         {text?.trim() ? (
           <p className="mt-4 text-base text-white/85 sm:text-lg">{text.trim()}</p>
         ) : null}
-        {visibleLinks.length > 0 ? (
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            {visibleLinks.map((link) => (
-              <Button key={link.href} href={link.href} variant="onDark" size="lg">
-                {link.label}
-              </Button>
-            ))}
-          </div>
-        ) : null}
+        <SocialIconLinks
+          links={visibleLinks}
+          tone="onDark"
+          size="lg"
+          className="mt-8"
+        />
       </div>
     </section>
   );

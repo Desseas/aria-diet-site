@@ -136,11 +136,8 @@ export type HomeFields = {
   ctaButtonUrl: string | null;
   instagramTitle: string | null;
   instagramText: string | null;
-  instagramButtonLabel: string | null;
   instagramUrl: string | null;
-  facebookButtonLabel: string | null;
   facebookUrl: string | null;
-  tiktokButtonLabel: string | null;
   tiktokUrl: string | null;
   seoTitle: string | null;
   seoDescription: string | null;

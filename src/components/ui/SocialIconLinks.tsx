@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 
-type SocialNetwork = "instagram" | "facebook" | "tiktok";
+export type SocialNetwork = "instagram" | "facebook" | "tiktok";
 
-type SocialIconLink = {
+export type SocialIconLink = {
   network: SocialNetwork;
   href: string;
   label: string;
@@ -29,17 +29,36 @@ const iconPaths: Record<SocialNetwork, ReactNode> = {
   ),
 };
 
+const toneClass = {
+  default:
+    "border-border text-muted hover:border-accent hover:bg-accent hover:text-white",
+  onDark:
+    "border-white/45 text-white hover:border-white hover:bg-white hover:text-accent",
+} as const;
+
 type SocialIconLinksProps = {
   links: SocialIconLink[];
   className?: string;
+  tone?: keyof typeof toneClass;
+  size?: "md" | "lg";
 };
 
-export function SocialIconLinks({ links, className = "" }: SocialIconLinksProps) {
+export function SocialIconLinks({
+  links,
+  className = "",
+  tone = "default",
+  size = "md",
+}: SocialIconLinksProps) {
   const visible = links.filter((link) => link.href.trim().length > 0);
   if (visible.length === 0) return null;
 
+  const sizeClass = size === "lg" ? "h-12 w-12" : "h-10 w-10";
+  const iconSize = size === "lg" ? 20 : 18;
+
   return (
-    <ul className={`flex flex-wrap items-center gap-2.5 ${className}`.trim()}>
+    <ul
+      className={`flex flex-wrap items-center justify-center gap-2.5 ${className}`.trim()}
+    >
       {visible.map((link) => (
         <li key={link.network}>
           <a
@@ -48,9 +67,14 @@ export function SocialIconLinks({ links, className = "" }: SocialIconLinksProps)
             title={link.label}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className={`inline-flex items-center justify-center rounded-full border transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${sizeClass} ${toneClass[tone]}`}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <svg
+              width={iconSize}
+              height={iconSize}
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
               {iconPaths[link.network]}
             </svg>
           </a>

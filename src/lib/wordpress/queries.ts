@@ -102,11 +102,8 @@ export const GET_HOME_PAGE = /* GraphQL */ `
         ctaButtonUrl
         instagramTitle
         instagramText
-        instagramButtonLabel
         instagramUrl
-        facebookButtonLabel
         facebookUrl
-        tiktokButtonLabel
         tiktokUrl
         seoTitle
         seoDescription

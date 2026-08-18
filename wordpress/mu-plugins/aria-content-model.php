@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Aria Content Model
  * Description: Service/Campaign CPTs + page ACF field groups for the headless Άρια Τσιάκα site.
- * Version: 0.6.0
+ * Version: 0.7.0
  *
  * Loaded as a must-use plugin so the content model stays in git.
  */
@@ -439,43 +439,25 @@ add_action('acf/init', static function (): void {
 				'instructions' => 'Shared supporting text under the social title.',
 			],
 			[
-				'key'   => 'field_home_instagram_button_label',
-				'label' => 'Instagram Button Label',
-				'name'  => 'instagram_button_label',
-				'type'  => 'text',
-			],
-			[
 				'key'   => 'field_home_instagram_url',
 				'label' => 'Instagram URL',
 				'name'  => 'instagram_url',
 				'type'  => 'url',
-				'instructions' => 'Leave empty to hide the Instagram button.',
-			],
-			[
-				'key'   => 'field_home_facebook_button_label',
-				'label' => 'Facebook Button Label',
-				'name'  => 'facebook_button_label',
-				'type'  => 'text',
+				'instructions' => 'Optional override. Leave empty to use Contact Instagram URL (or hide icon).',
 			],
 			[
 				'key'   => 'field_home_facebook_url',
 				'label' => 'Facebook URL',
 				'name'  => 'facebook_url',
 				'type'  => 'url',
-				'instructions' => 'Leave empty to hide the Facebook button.',
-			],
-			[
-				'key'   => 'field_home_tiktok_button_label',
-				'label' => 'TikTok Button Label',
-				'name'  => 'tiktok_button_label',
-				'type'  => 'text',
+				'instructions' => 'Optional override. Leave empty to use Contact Facebook URL (or hide icon).',
 			],
 			[
 				'key'   => 'field_home_tiktok_url',
 				'label' => 'TikTok URL',
 				'name'  => 'tiktok_url',
 				'type'  => 'url',
-				'instructions' => 'Leave empty to hide the TikTok button.',
+				'instructions' => 'Optional override. Leave empty to use Contact TikTok URL (or hide icon).',
 			],
 			[
 				'key'   => 'field_home_seo_title',
