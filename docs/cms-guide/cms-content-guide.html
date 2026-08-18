@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="utf-8" />
+  <title>CMS Content Guide — Άρια Τσιάκα</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 16mm 14mm 18mm 14mm;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", Calibri, Arial, sans-serif;
+      color: #2a2e2c;
+      font-size: 11pt;
+      line-height: 1.45;
+      margin: 0;
+    }
+    h1 {
+      font-size: 22pt;
+      margin: 0 0 6px;
+      color: #3d6b5c;
+    }
+    h2 {
+      font-size: 14pt;
+      color: #3d6b5c;
+      border-bottom: 2px solid #c5b8ab;
+      padding-bottom: 4px;
+      margin: 22px 0 10px;
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 12pt;
+      margin: 14px 0 6px;
+      page-break-after: avoid;
+    }
+    p, li { margin: 0 0 8px; }
+    .lead { color: #555; margin-bottom: 14px; }
+    .meta {
+      background: #f6f3ee;
+      border-left: 4px solid #3d6b5c;
+      padding: 10px 12px;
+      margin: 12px 0 18px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 14px;
+      font-size: 10pt;
+    }
+    th, td {
+      border: 1px solid #d8d2c8;
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f2efe9; }
+    .path {
+      display: inline-block;
+      background: #3a403c;
+      color: #fff;
+      font-size: 9.5pt;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin: 0 0 8px;
+    }
+    figure {
+      margin: 10px 0 16px;
+      page-break-inside: avoid;
+    }
+    figure img {
+      display: block;
+      width: 100%;
+      max-height: 230mm;
+      object-fit: contain;
+      object-position: top;
+      border: 1px solid #d8d2c8;
+      border-radius: 4px;
+      background: #fff;
+    }
+    figcaption {
+      font-size: 9pt;
+      color: #666;
+      margin-top: 4px;
+    }
+    .shot-tall img {
+      max-height: 200mm;
+    }
+    pre {
+      background: #f6f3ee;
+      border: 1px solid #d8d2c8;
+      padding: 10px 12px;
+      font-size: 9.5pt;
+      white-space: pre-wrap;
+      page-break-inside: avoid;
+    }
+    .note {
+      font-size: 10pt;
+      color: #555;
+      font-style: italic;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+    .cover {
+      page-break-after: always;
+      padding-top: 40mm;
+    }
+    .cover .subtitle { font-size: 13pt; color: #555; margin-top: 8px; }
+    .toc li { margin-bottom: 4px; }
+    footer.page-foot {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="cover">
+    <h1>CMS Content Guide</h1>
+    <p class="subtitle">Άρια Τσιάκα — how to edit the website from WordPress</p>
+    <div class="meta">
+      <strong>Local admin:</strong> http://localhost:8080/wp-admin<br />
+      <strong>Live admin:</strong> https://cms.ariatsiaka.gr/wp-admin<br />
+      <strong>Screenshots:</strong> captured from the local CMS (real screens)
+    </div>
+    <p>Edit text and images in WordPress → click <strong>Αποθήκευση / Update</strong> → the public site refreshes.</p>
+    <h3>Contents</h3>
+    <ol class="toc">
+      <li>Where to click (quick map)</li>
+      <li>Homepage</li>
+      <li>About</li>
+      <li>Contact (phone &amp; email)</li>
+      <li>Services</li>
+      <li>Campaigns</li>
+      <li>Brand colors (Site Theme)</li>
+      <li>FAQ &amp; list format</li>
+      <li>Publish checklist</li>
+    </ol>
+  </section>
+
+  <h2>1. Where to click</h2>
+  <p class="lead">Left menu in WP Admin → open the matching item.</p>
+
+  <figure>
+    <img src="screenshots/01b-admin-menu.png" alt="WordPress admin left menu" />
+    <figcaption>Left menu — use Σελίδες (Pages), Services, and Campaigns.</figcaption>
+  </figure>
+
+  <table>
+    <thead>
+      <tr><th>On the website</th><th>Edit in WordPress</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>/</code> Homepage</td><td><strong>Σελίδες → Home</strong> (Front Page)</td></tr>
+      <tr><td><code>/about</code></td><td><strong>Σελίδες → About Me</strong> (slug <code>about</code>)</td></tr>
+      <tr><td><code>/contact</code></td><td><strong>Σελίδες → Επικοινωνία</strong> (slug <code>contact</code>)</td></tr>
+      <tr><td><code>/services</code> list</td><td><strong>Services</strong> (each published service = one card)</td></tr>
+      <tr><td><code>/services/…</code></td><td><strong>Services →</strong> open that service</td></tr>
+      <tr><td><code>/campaigns/…</code></td><td><strong>Campaigns →</strong> open that campaign</td></tr>
+      <tr><td>Brand colors</td><td><strong>Σελίδες → Site Theme</strong></td></tr>
+      <tr><td>Phone / email in header</td><td><strong>Σελίδες → Επικοινωνία</strong> → Phone / Email</td></tr>
+    </tbody>
+  </table>
+
+  <figure>
+    <img src="screenshots/02b-pages-list-clean.png" alt="Pages list in WordPress" />
+    <figcaption>Σελίδες — Home, About Me, Επικοινωνία, Site Theme.</figcaption>
+  </figure>
+
+  <h2>2. Homepage — <code>/</code></h2>
+  <span class="path">Σελίδες → Home → box “Homepage”</span>
+  <p>Do <strong>not</strong> write the page in the empty block editor. Scroll to the <strong>Homepage</strong> fields and edit there.</p>
+  <p class="note">Once: Settings → Reading → static homepage = Home.</p>
+
+  <figure class="shot-tall">
+    <img src="screenshots/03b-home-acf-box.png" alt="Homepage ACF fields" />
+    <figcaption>Homepage fields — Hero, About preview, Services intro, Approach, Philosophy, Quote, FAQ, CTA, Instagram, SEO.</figcaption>
+  </figure>
+
+  <table>
+    <thead><tr><th>Field group</th><th>Controls on the site</th></tr></thead>
+    <tbody>
+      <tr><td>Hero</td><td>Big banner text, buttons, image</td></tr>
+      <tr><td>About preview</td><td>Dark “Γνωρίστε με” section</td></tr>
+      <tr><td>Services section</td><td>Title/intro above service cards</td></tr>
+      <tr><td>Approach / Philosophy / Quote</td><td>Middle sections</td></tr>
+      <tr><td>FAQ</td><td>Accordion (see format below)</td></tr>
+      <tr><td>Final CTA / Instagram</td><td>Bottom conversion strips</td></tr>
+      <tr><td>SEO</td><td>Browser tab &amp; Google snippet</td></tr>
+    </tbody>
+  </table>
+  <p>Service cards on the homepage come from <strong>published Services</strong>, not from Home fields.</p>
+
+  <h2>3. About — <code>/about</code></h2>
+  <span class="path">Σελίδες → About Me → box “About Page”</span>
+  <p>Keep the slug <code>about</code>.</p>
+
+  <figure class="shot-tall">
+    <img src="screenshots/04b-about-acf-box.png" alt="About Page ACF fields" />
+    <figcaption>About Page fields — Hero, Biography, Philosophy, Qualifications, Approach, Lifestyle image, CTA, SEO.</figcaption>
+  </figure>
+
+  <h2>4. Contact — <code>/contact</code></h2>
+  <span class="path">Σελίδες → Επικοινωνία → box “Contact Page”</span>
+  <p>Phone and Email here also appear in the <strong>header and footer</strong> of the public site.</p>
+
+  <figure class="shot-tall">
+    <img src="screenshots/05b-contact-acf-box.png" alt="Contact Page ACF fields" />
+    <figcaption>Contact fields — intro, hero image, phone, email, address, hours, social URLs, SEO.</figcaption>
+  </figure>
+  <p>WhatsApp example: <code>https://wa.me/30XXXXXXXXXX</code></p>
+
+  <h2>5. Services — <code>/services</code> &amp; detail pages</h2>
+  <span class="path">Left menu → Services (heart icon)</span>
+
+  <figure>
+    <img src="screenshots/06b-services-list-clean.png" alt="Services list" />
+    <figcaption>All services — Add New Service creates a new card + URL.</figcaption>
+  </figure>
+
+  <table>
+    <thead><tr><th>Action</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>Add New Service</td><td>New card on home &amp; /services + <code>/services/your-slug</code></td></tr>
+      <tr><td>Edit</td><td>Updates that page and cards</td></tr>
+      <tr><td>Unpublish / trash</td><td>Removed from the site</td></tr>
+    </tbody>
+  </table>
+
+  <figure class="shot-tall">
+    <img src="screenshots/07b-service-acf-box.png" alt="Service Details fields" />
+    <figcaption>Service Details — short description, hero, intro, body, benefits, process, FAQ, CTA, SEO. Also set a Featured Image for the card.</figcaption>
+  </figure>
+  <p class="note">The /services listing hero title is fixed in the frontend for now. Cards and detail pages are fully CMS-driven.</p>
+
+  <h2>6. Campaigns — Instagram landings</h2>
+  <span class="path">Left menu → Campaigns (megaphone)</span>
+  <p>Public URL: <code>/campaigns/</code> + slug (example <code>/campaigns/summer-reset</code>).</p>
+
+  <figure>
+    <img src="screenshots/08b-campaigns-list-clean.png" alt="Campaigns list" />
+    <figcaption>Campaigns list.</figcaption>
+  </figure>
+
+  <figure class="shot-tall">
+    <img src="screenshots/09b-campaign-acf-box.png" alt="Campaign Details fields" />
+    <figcaption>Campaign Details — eyebrow, hero, intro, body, CTA (usually button URL = /contact), SEO.</figcaption>
+  </figure>
+
+  <h2>7. Brand colors — Site Theme</h2>
+  <span class="path">Σελίδες → Site Theme → box “Brand Colors”</span>
+  <p>This page is <strong>not</strong> in the public menu. Do not delete it.</p>
+
+  <figure>
+    <img src="screenshots/10b-theme-acf-box.png" alt="Brand Colors pickers" />
+    <figcaption>Color pickers — Accent, Nav, Pattern, Surface muted, Dark band, Body text.</figcaption>
+  </figure>
+
+  <h2>8. FAQ &amp; lists format</h2>
+  <h3>Lists</h3>
+  <p>Benefits, Process, Qualifications, Opening Hours — one item per line:</p>
+  <pre>First item
+Second item
+Third item</pre>
+
+  <h3>FAQ</h3>
+  <p>Blank line between each Q&amp;A pair:</p>
+  <pre>First question?
+First answer.
+
+Second question?
+Second answer.</pre>
+
+  <h2>9. Publish checklist</h2>
+  <ol>
+    <li>Open the right item from the quick map.</li>
+    <li>Edit the ACF box fields (not the empty Gutenberg area).</li>
+    <li>Click <strong>Αποθήκευση / Update</strong>.</li>
+    <li>Check the matching public URL (hard-refresh if needed).</li>
+    <li>Keep slugs stable: Home (front page), <code>about</code>, <code>contact</code>.</li>
+  </ol>
+
+  <h3>Images</h3>
+  <ul>
+    <li>Prefer wide JPG/WebP for heroes (~1600px+).</li>
+    <li>Use each field’s Add Image, or Media Library.</li>
+    <li>Fill Alt text. Empty hero → site uses a fallback photo.</li>
+  </ul>
+
+  <h3>Need help?</h3>
+  <table>
+    <thead><tr><th>Symptom</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr><td>Homepage fields missing</td><td>Settings → Reading → Front page = Home</td></tr>
+      <tr><td>About/Contact fields missing</td><td>Confirm slugs <code>about</code> / <code>contact</code>; ask developer if box still missing</td></tr>
+      <tr><td>Change not on site</td><td>Confirm Published, wait a few seconds, hard-refresh</td></tr>
+      <tr><td>Wrong phone in header</td><td>Σελίδες → Επικοινωνία → Phone</td></tr>
+    </tbody>
+  </table>
+
+  <p class="note" style="margin-top:24px">Not editable in CMS yet: main menu labels, logo name string, /services listing hero copy — ask a developer.</p>
+
+</body>
+</html>

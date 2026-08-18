@@ -150,6 +150,10 @@ The frontend injects these as CSS variables on every page. Layout stays in Next.
 
 Hover / soft / border tones are derived automatically from Accent / Nav / Pattern.
 
+## Content editing (customer / editor)
+
+See **[cms-content-guide.md](./cms-content-guide.md)** — quick map of every editable field and where to find it in WP Admin.
+
 ## Next steps
 
 Content editing lives in WP Admin (pages, services, campaigns). Frontend routes are driven by GraphQL — keep `npm run dev` and `docker compose up -d` running while editing.
