@@ -26,7 +26,16 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-WordPress is **not** required for Phase 1.
+## Local WordPress (CMS)
+
+```bash
+docker compose up -d
+```
+
+- WordPress: http://localhost:8080  
+- GraphQL: http://localhost:8080/graphql  
+
+Full checklist: [`docs/wordpress-setup.md`](./docs/wordpress-setup.md)
 
 ## Environment variables
 
@@ -34,13 +43,11 @@ Copy `.env.example` → `.env.local` when connecting WordPress (Phase 3).
 
 ## Current status
 
-**Phase 1 — Frontend foundation**
+**Phase 4 — Services live**
 
-- Design tokens (inspired by Klifes visual language)
-- Header / mobile menu / Footer branded for Άρια Τσιάκα
-- UI primitives + homepage skeleton
-
-Next: **Phase 2 — WordPress environment** (Docker + plugins + GraphQL verify).
+- WP CPT `service` + ACF `serviceDetails` via mu-plugin
+- Frontend: `/services`, `/services/[slug]`
+- Next: Phase 5 homepage CMS sections (or edit sample services in WP Admin)
 
 ## Scripts
 
@@ -50,3 +57,5 @@ Next: **Phase 2 — WordPress environment** (Docker + plugins + GraphQL verify).
 | `npm run build` | Production build |
 | `npm run start` | Start production server |
 | `npm run lint` | ESLint |
+| `docker compose up -d` | Start local WordPress |
+| `docker compose down` | Stop WordPress |

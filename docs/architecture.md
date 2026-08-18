@@ -25,8 +25,8 @@ Next.js owns: layout, typography, spacing, components, routing, performance.
 | --- | --- |
 | Frontend | Next.js 16 (App Router), TypeScript, Tailwind CSS 4 |
 | CMS | WordPress (Docker for local) |
-| Content fields | ACF (Pro may be needed for repeaters/options — decide in Phase 2/4) |
-| API | WPGraphQL (+ ACF GraphQL integration after verifying current docs) |
+| Content fields | ACF Free first; Pro only if repeaters/options needed |
+| API | WPGraphQL + **WPGraphQL for ACF** (`wpgraphql-acf`) |
 | Forms | Next.js Route Handler (Phase 7) |
 | Cache | Next.js fetch cache + later `/api/revalidate` webhook (Phase 10) |
 
@@ -60,10 +60,10 @@ Prefer free approach first (dedicated Settings page or CPT). Use ACF Options onl
 ## Implementation phases
 
 0. Inspect repo — done  
-1. Frontend foundation — in progress  
-2. WordPress environment (Docker, plugins, GraphiQL verify)  
-3. Connect Next.js → simple GraphQL fetch  
-4. Service CPT + `/services` routes  
+1. Frontend foundation — done  
+2. WordPress environment — done (Docker + WPGraphQL + ACF + WPGraphQL for ACF)  
+3. Connect Next.js → simple GraphQL fetch — done  
+4. Service CPT + `/services` routes — in progress  
 5. Homepage sections  
 6. About  
 7. Contact + form  
