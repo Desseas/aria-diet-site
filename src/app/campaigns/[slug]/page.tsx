@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { CampaignChrome } from "@/components/campaign/CampaignChrome";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { buildPageMetadata } from "@/lib/seo";
 import { resolveWpImage } from "@/lib/wordpress/content";
 import { getCampaignBySlug, getCampaigns } from "@/lib/wordpress/queries";
 
@@ -33,15 +34,13 @@ export async function generateMetadata({
     undefined;
   const image = resolveWpImage(details?.heroImage, campaign.title);
 
-  return {
-    title: { absolute: title },
+  return buildPageMetadata({
+    title,
     description,
-    openGraph: {
-      title,
-      description,
-      images: image ? [{ url: image.src }] : undefined,
-    },
-  };
+    path: `/campaigns/${slug}`,
+    image: image?.src,
+    absoluteTitle: true,
+  });
 }
 
 export default async function CampaignPage({ params }: CampaignPageProps) {

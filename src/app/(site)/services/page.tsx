@@ -3,13 +3,15 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ServiceCard } from "@/components/service/ServiceCard";
 import { Button } from "@/components/ui/Button";
+import { buildPageMetadata } from "@/lib/seo";
 import { getServices } from "@/lib/wordpress/queries";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Διαιτολογικές Υπηρεσίες",
   description:
     "Γνωρίστε τις διαιτολογικές υπηρεσίες της Άριας Τσιάκα — εξατομικευμένη καθοδήγηση και προγράμματα ευεξίας.",
-};
+  path: "/services",
+});
 
 export default async function ServicesPage() {
   const data = await getServices();

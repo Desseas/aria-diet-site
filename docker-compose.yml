@@ -25,9 +25,14 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
+      # Next.js on the host (Docker Desktop). Match REVALIDATION_SECRET in .env.local
+      ARIA_REVALIDATE_URL: http://host.docker.internal:3000/api/revalidate
+      ARIA_REVALIDATE_SECRET: ${REVALIDATION_SECRET:-local-dev-revalidate-secret}
       WORDPRESS_CONFIG_EXTRA: |
         define('WP_HOME', 'http://localhost:8080');
         define('WP_SITEURL', 'http://localhost:8080');
+        define('ARIA_REVALIDATE_URL', getenv('ARIA_REVALIDATE_URL') ?: '');
+        define('ARIA_REVALIDATE_SECRET', getenv('ARIA_REVALIDATE_SECRET') ?: '');
     volumes:
       - wp_data:/var/www/html
       - ./wordpress/mu-plugins:/var/www/html/wp-content/mu-plugins

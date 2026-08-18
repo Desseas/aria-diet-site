@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { buildPageMetadata } from "@/lib/seo";
 import {
   linesFromTextarea,
   resolveWpImage,
@@ -14,18 +15,19 @@ export async function generateMetadata(): Promise<Metadata> {
   const data = await getAboutPage();
   const fields = data.page?.aboutFields;
   const title = fields?.seoTitle?.trim() || data.page?.title || "About Me";
-  const description = fields?.seoDescription?.trim() || undefined;
+  const description =
+    fields?.seoDescription?.trim() ||
+    fields?.heroDescription?.trim() ||
+    undefined;
   const image = resolveWpImage(fields?.heroImage, title);
 
-  return {
-    title: { absolute: title },
+  return buildPageMetadata({
+    title,
     description,
-    openGraph: {
-      title,
-      description,
-      images: image ? [{ url: image.src }] : undefined,
-    },
-  };
+    path: "/about",
+    image: image?.src,
+    absoluteTitle: true,
+  });
 }
 
 export default async function AboutPage() {

@@ -138,6 +138,10 @@ Do **not** buy Divi/Elementor. ACF Pro is the only paid CMS add-on we might just
 
 Docker credentials in `docker-compose.yml` are for **local only**. Never reuse them in production.
 
-## Next phase
+## Revalidation (frontend cache)
 
-After you confirm GraphiQL returns `generalSettings.title`, tell me — Phase 3 connects Next.js with `WORDPRESS_GRAPHQL_ENDPOINT=http://localhost:8080/graphql`.
+After content changes, WordPress notifies Next.js. See [`docs/revalidation.md`](./revalidation.md).
+
+## Next steps
+
+Content editing lives in WP Admin (pages, services, campaigns). Frontend routes are driven by GraphQL — keep `npm run dev` and `docker compose up -d` running while editing.

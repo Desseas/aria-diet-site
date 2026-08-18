@@ -7,6 +7,7 @@ import { InstagramCta } from "@/components/sections/InstagramCta";
 import { QuoteBand } from "@/components/sections/QuoteBand";
 import { SplitFeature } from "@/components/sections/SplitFeature";
 import { ServiceFaq } from "@/components/service/ServiceFaq";
+import { buildPageMetadata } from "@/lib/seo";
 import {
   faqFromTextarea,
   resolveWpImage,
@@ -16,13 +17,20 @@ import { getHomePage, getServices } from "@/lib/wordpress/queries";
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getHomePage();
   const fields = data.page?.homeFields;
-  const title = fields?.seoTitle?.trim();
-  const description = fields?.seoDescription?.trim();
+  const title =
+    fields?.seoTitle?.trim() || "Άρια Τσιάκα | Διαιτολόγος";
+  const description =
+    fields?.seoDescription?.trim() ||
+    "Διατροφική καθοδήγηση με επίκεντρο την υγεία, την ισορροπία και την αυτοπεποίθηση.";
+  const image = resolveWpImage(fields?.heroImage, title);
 
-  return {
-    title: title ? { absolute: title } : undefined,
-    description: description || undefined,
-  };
+  return buildPageMetadata({
+    title,
+    description,
+    path: "/",
+    image: image?.src,
+    absoluteTitle: true,
+  });
 }
 
 export default async function HomePage() {

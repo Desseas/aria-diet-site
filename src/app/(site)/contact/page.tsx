@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { buildPageMetadata } from "@/lib/seo";
 import { linesFromTextarea } from "@/lib/wordpress/content";
 import { getContactPage } from "@/lib/wordpress/queries";
 
@@ -9,12 +10,17 @@ export async function generateMetadata(): Promise<Metadata> {
   const data = await getContactPage();
   const fields = data.page?.contactFields;
   const title = fields?.seoTitle?.trim() || data.page?.title || "Επικοινωνία";
-  const description = fields?.seoDescription?.trim() || undefined;
+  const description =
+    fields?.seoDescription?.trim() ||
+    fields?.introText?.trim() ||
+    undefined;
 
-  return {
-    title: { absolute: title },
+  return buildPageMetadata({
+    title,
     description,
-  };
+    path: "/contact",
+    absoluteTitle: true,
+  });
 }
 
 type ContactMethod = {

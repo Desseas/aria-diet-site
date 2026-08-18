@@ -28,7 +28,7 @@ export function CampaignChrome({
           </Link>
         </div>
       </header>
-      {children}
+      <main id="main-content">{children}</main>
       <footer className="border-t border-border py-6 text-center text-xs text-muted">
         <Link href="/" className="hover:text-accent">
           ← {siteBrand.personName}

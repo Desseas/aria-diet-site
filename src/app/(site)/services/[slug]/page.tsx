@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { ServiceFaq } from "@/components/service/ServiceFaq";
+import { buildPageMetadata } from "@/lib/seo";
 import {
   faqFromTextarea,
   linesFromTextarea,
@@ -38,17 +39,13 @@ export async function generateMetadata({
     undefined;
   const image = resolveWpImage(details?.heroImage, service.title);
 
-  return {
-    title: {
-      absolute: title,
-    },
+  return buildPageMetadata({
+    title,
     description,
-    openGraph: {
-      title,
-      description,
-      images: image ? [{ url: image.src }] : undefined,
-    },
-  };
+    path: `/services/${slug}`,
+    image: image?.src,
+    absoluteTitle: true,
+  });
 }
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {

@@ -27,8 +27,8 @@ Next.js owns: layout, typography, spacing, components, routing, performance.
 | CMS | WordPress (Docker for local) |
 | Content fields | ACF Free first; Pro only if repeaters/options needed |
 | API | WPGraphQL + **WPGraphQL for ACF** (`wpgraphql-acf`) |
-| Forms | Next.js Route Handler (Phase 7) |
-| Cache | Next.js fetch cache + later `/api/revalidate` webhook (Phase 10) |
+| Forms | Contact methods page (no form for now) |
+| Cache | Next.js fetch tags + `POST /api/revalidate` (see `docs/revalidation.md`) |
 
 ## Routes (target)
 
@@ -39,7 +39,7 @@ Next.js owns: layout, typography, spacing, components, routing, performance.
 | `/services` | Services listing |
 | `/services/[slug]` | Service CPT |
 | `/campaigns/[slug]` | Campaign CPT (Instagram landing pages) |
-| `/contact` | Contact page + form API |
+| `/contact` | Contact methods (phone, email, socials; no form) |
 
 Primary nav (no products/cart): Αρχική · About Me · Διαιτολογικές Υπηρεσίες · Επικοινωνία
 
@@ -68,9 +68,9 @@ Prefer free approach first (dedicated Settings page or CPT). Use ACF Options onl
 6. About — done (CMS `aboutFields` → `/about`)  
 7. Contact — done (methods only, no form; CMS `contactFields`)  
 8. Campaign CPT — done (`/campaigns/[slug]` + slim CampaignChrome)  
-9. SEO metadata  
-10. Revalidation webhook  
-11. Polish (a11y, CWV, 404/error)
+9. SEO metadata — done (canonical, Open Graph, sitemap, robots)  
+10. Revalidation webhook — done (`POST /api/revalidate` + WP mu-plugin)  
+11. Polish — done (404/error, skip link, shared metadata helper)
 
 ## Critical rules
 

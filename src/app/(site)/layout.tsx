@@ -12,7 +12,9 @@ export default async function SiteLayout({
   return (
     <>
       <Header contact={contact} />
-      <main className="flex-1">{children}</main>
+      <main id="main-content" className="flex-1">
+        {children}
+      </main>
       <Footer contact={contact} />
     </>
   );
