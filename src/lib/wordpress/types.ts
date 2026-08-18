@@ -138,6 +138,10 @@ export type HomeFields = {
   instagramText: string | null;
   instagramButtonLabel: string | null;
   instagramUrl: string | null;
+  facebookButtonLabel: string | null;
+  facebookUrl: string | null;
+  tiktokButtonLabel: string | null;
+  tiktokUrl: string | null;
   seoTitle: string | null;
   seoDescription: string | null;
 };
@@ -187,6 +191,7 @@ export type ContactFields = {
   openingHours: string | null;
   instagramUrl: string | null;
   facebookUrl: string | null;
+  tiktokUrl: string | null;
   whatsappUrl: string | null;
   seoTitle: string | null;
   seoDescription: string | null;
@@ -218,6 +223,7 @@ export type SiteContact = {
   address: string;
   instagramUrl: string;
   facebookUrl: string;
+  tiktokUrl: string;
   whatsappUrl: string;
 };
 

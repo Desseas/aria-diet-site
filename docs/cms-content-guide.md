@@ -45,7 +45,7 @@ Also required once: **Settings → Reading → Your homepage displays → A stat
 | Quote | Quote band text |
 | FAQ | Q&A accordion (see [FAQ format](#faq--lists-format)) |
 | Final CTA | Bottom “ready for the next step?” block |
-| Instagram | Instagram strip title / text / button / URL |
+| Social | Shared title/text + Instagram / Facebook / TikTok buttons (empty URL = hidden button) |
 | SEO Title / Description | Browser tab & Google snippet |
 
 \* If Hero Image is empty, the site shows a default food photo.
@@ -85,7 +85,7 @@ Service cards on the homepage come from **published Services**, not from the Hom
 | Email | Contact page **and** header / footer |
 | Office Address | Address block (also footer city/line when set) |
 | Opening Hours | One line per schedule entry |
-| Instagram / Facebook / WhatsApp URLs | Social / messaging links |
+| Instagram / Facebook / TikTok / WhatsApp URLs | Social / messaging links |
 | SEO | Tab title & meta description |
 
 Empty phone/email fall back to demo placeholders until you fill them.

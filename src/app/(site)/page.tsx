@@ -3,8 +3,8 @@ import { Container } from "@/components/ui/Container";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { HomeHero } from "@/components/sections/HomeHero";
 import { HomeServices } from "@/components/sections/HomeServices";
-import { InstagramCta } from "@/components/sections/InstagramCta";
 import { QuoteBand } from "@/components/sections/QuoteBand";
+import { SocialCta } from "@/components/sections/SocialCta";
 import { SplitFeature } from "@/components/sections/SplitFeature";
 import { ServiceFaq } from "@/components/service/ServiceFaq";
 import { resolveContentImage, resolveHeroImage } from "@/lib/hero-fallbacks";
@@ -140,11 +140,24 @@ export default async function HomePage() {
         buttonHref={fields?.ctaButtonUrl}
       />
 
-      <InstagramCta
+      <SocialCta
         title={fields?.instagramTitle}
         text={fields?.instagramText}
-        buttonLabel={fields?.instagramButtonLabel}
-        href={fields?.instagramUrl}
+        links={[
+          {
+            label:
+              fields?.instagramButtonLabel?.trim() || "Instagram",
+            href: fields?.instagramUrl?.trim() || "",
+          },
+          {
+            label: fields?.facebookButtonLabel?.trim() || "Facebook",
+            href: fields?.facebookUrl?.trim() || "",
+          },
+          {
+            label: fields?.tiktokButtonLabel?.trim() || "TikTok",
+            href: fields?.tiktokUrl?.trim() || "",
+          },
+        ]}
       />
     </>
   );

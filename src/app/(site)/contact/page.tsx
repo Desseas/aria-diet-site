@@ -99,6 +99,15 @@ export default async function ContactPage() {
     });
   }
 
+  if (fields?.tiktokUrl?.trim()) {
+    methods.push({
+      label: "TikTok",
+      value: "Ακολουθήστε",
+      href: fields.tiktokUrl.trim(),
+      external: true,
+    });
+  }
+
   return (
     <>
       <PageHero

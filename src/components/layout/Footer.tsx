@@ -19,6 +19,7 @@ export function Footer({ contact }: FooterProps) {
   const address = contact?.address?.trim() || "";
   const instagramUrl = contact?.instagramUrl?.trim() || "";
   const facebookUrl = contact?.facebookUrl?.trim() || "";
+  const tiktokUrl = contact?.tiktokUrl?.trim() || "";
 
   return (
     <footer className="mt-auto border-t border-border bg-surface">
@@ -91,6 +92,18 @@ export function Footer({ contact }: FooterProps) {
                   rel="noopener noreferrer"
                 >
                   Facebook
+                </a>
+              </li>
+            ) : null}
+            {tiktokUrl ? (
+              <li>
+                <a
+                  href={tiktokUrl}
+                  className="hover:text-accent"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  TikTok
                 </a>
               </li>
             ) : null}

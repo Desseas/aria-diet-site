@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Aria Content Model
  * Description: Service/Campaign CPTs + page ACF field groups for the headless Άρια Τσιάκα site.
- * Version: 0.5.0
+ * Version: 0.6.0
  *
  * Loaded as a must-use plugin so the content model stays in git.
  */
@@ -425,16 +425,18 @@ add_action('acf/init', static function (): void {
 			],
 			[
 				'key'   => 'field_home_instagram_title',
-				'label' => 'Instagram Title',
+				'label' => 'Social Title',
 				'name'  => 'instagram_title',
 				'type'  => 'text',
+				'instructions' => 'One title for the social section (Instagram, Facebook, TikTok).',
 			],
 			[
 				'key'   => 'field_home_instagram_text',
-				'label' => 'Instagram Text',
+				'label' => 'Social Text',
 				'name'  => 'instagram_text',
 				'type'  => 'textarea',
 				'rows'  => 2,
+				'instructions' => 'Shared supporting text under the social title.',
 			],
 			[
 				'key'   => 'field_home_instagram_button_label',
@@ -447,6 +449,33 @@ add_action('acf/init', static function (): void {
 				'label' => 'Instagram URL',
 				'name'  => 'instagram_url',
 				'type'  => 'url',
+				'instructions' => 'Leave empty to hide the Instagram button.',
+			],
+			[
+				'key'   => 'field_home_facebook_button_label',
+				'label' => 'Facebook Button Label',
+				'name'  => 'facebook_button_label',
+				'type'  => 'text',
+			],
+			[
+				'key'   => 'field_home_facebook_url',
+				'label' => 'Facebook URL',
+				'name'  => 'facebook_url',
+				'type'  => 'url',
+				'instructions' => 'Leave empty to hide the Facebook button.',
+			],
+			[
+				'key'   => 'field_home_tiktok_button_label',
+				'label' => 'TikTok Button Label',
+				'name'  => 'tiktok_button_label',
+				'type'  => 'text',
+			],
+			[
+				'key'   => 'field_home_tiktok_url',
+				'label' => 'TikTok URL',
+				'name'  => 'tiktok_url',
+				'type'  => 'url',
+				'instructions' => 'Leave empty to hide the TikTok button.',
 			],
 			[
 				'key'   => 'field_home_seo_title',
@@ -694,6 +723,12 @@ add_action('acf/init', static function (): void {
 				'key'   => 'field_contact_facebook_url',
 				'label' => 'Facebook URL',
 				'name'  => 'facebook_url',
+				'type'  => 'url',
+			],
+			[
+				'key'   => 'field_contact_tiktok_url',
+				'label' => 'TikTok URL',
+				'name'  => 'tiktok_url',
 				'type'  => 'url',
 			],
 			[

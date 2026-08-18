@@ -104,6 +104,10 @@ export const GET_HOME_PAGE = /* GraphQL */ `
         instagramText
         instagramButtonLabel
         instagramUrl
+        facebookButtonLabel
+        facebookUrl
+        tiktokButtonLabel
+        tiktokUrl
         seoTitle
         seoDescription
       }
@@ -159,6 +163,7 @@ export const GET_CONTACT_PAGE = /* GraphQL */ `
         openingHours
         instagramUrl
         facebookUrl
+        tiktokUrl
         whatsappUrl
         seoTitle
         seoDescription
@@ -352,6 +357,7 @@ export async function getSiteContact(): Promise<SiteContact> {
       address: filled.address,
       instagramUrl: fields?.instagramUrl?.trim() || "",
       facebookUrl: fields?.facebookUrl?.trim() || "",
+      tiktokUrl: fields?.tiktokUrl?.trim() || "",
       whatsappUrl: fields?.whatsappUrl?.trim() || "",
     };
   } catch {
@@ -362,6 +368,7 @@ export async function getSiteContact(): Promise<SiteContact> {
       address: filled.address,
       instagramUrl: "",
       facebookUrl: "",
+      tiktokUrl: "",
       whatsappUrl: "",
     };
   }
