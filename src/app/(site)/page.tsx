@@ -11,9 +11,10 @@ import { resolveContentImage, resolveHeroImage } from "@/lib/hero-fallbacks";
 import { buildPageMetadata } from "@/lib/seo";
 import {
   faqFromTextarea,
+  resolveSocialUrl,
   resolveWpImage,
 } from "@/lib/wordpress/content";
-import { getHomePage, getServices } from "@/lib/wordpress/queries";
+import { getHomePage, getServices, getSiteContact } from "@/lib/wordpress/queries";
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getHomePage();
@@ -38,9 +39,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const [home, servicesData] = await Promise.all([
+  const [home, servicesData, contact] = await Promise.all([
     getHomePage(),
     getServices(),
+    getSiteContact(),
   ]);
 
   const fields = home.page?.homeFields;
@@ -145,17 +147,16 @@ export default async function HomePage() {
         text={fields?.instagramText}
         links={[
           {
-            label:
-              fields?.instagramButtonLabel?.trim() || "Instagram",
-            href: fields?.instagramUrl?.trim() || "",
+            label: fields?.instagramButtonLabel?.trim() || "Instagram",
+            href: resolveSocialUrl(fields?.instagramUrl, contact.instagramUrl),
           },
           {
             label: fields?.facebookButtonLabel?.trim() || "Facebook",
-            href: fields?.facebookUrl?.trim() || "",
+            href: resolveSocialUrl(fields?.facebookUrl, contact.facebookUrl),
           },
           {
             label: fields?.tiktokButtonLabel?.trim() || "TikTok",
-            href: fields?.tiktokUrl?.trim() || "",
+            href: resolveSocialUrl(fields?.tiktokUrl, contact.tiktokUrl),
           },
         ]}
       />

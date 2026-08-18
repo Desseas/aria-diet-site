@@ -45,7 +45,7 @@ Also required once: **Settings → Reading → Your homepage displays → A stat
 | Quote | Quote band text |
 | FAQ | Q&A accordion (see [FAQ format](#faq--lists-format)) |
 | Final CTA | Bottom “ready for the next step?” block |
-| Social | Shared title/text + Instagram / Facebook / TikTok buttons (empty URL = hidden button) |
+| Social | Shared title/text + button labels. URLs: fill on Home *or* leave empty / placeholder and they use **Contact** social URLs. Empty = button hidden. |
 | SEO Title / Description | Browser tab & Google snippet |
 
 \* If Hero Image is empty, the site shows a default food photo.

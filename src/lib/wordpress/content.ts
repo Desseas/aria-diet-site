@@ -32,6 +32,43 @@ export function linesFromTextarea(value: string | null | undefined): string[] {
 }
 
 /**
+ * Prefer a page-specific social URL; fall back to the shared Contact URL.
+ * Bare network roots (e.g. https://instagram.com/) count as empty placeholders.
+ */
+export function resolveSocialUrl(
+  pageUrl?: string | null,
+  sharedUrl?: string | null,
+): string {
+  const page = pageUrl?.trim() || "";
+  const shared = sharedUrl?.trim() || "";
+
+  if (page && !isBareSocialUrl(page)) {
+    return page;
+  }
+
+  if (shared && !isBareSocialUrl(shared)) {
+    return shared;
+  }
+
+  return "";
+}
+
+function isBareSocialUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.replace(/^www\./, "").toLowerCase();
+    const path = parsed.pathname.replace(/\/+$/, "");
+    const socialHosts = ["instagram.com", "facebook.com", "fb.com", "tiktok.com"];
+    if (!socialHosts.includes(host)) {
+      return false;
+    }
+    return path === "" || path === "/";
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Parse FAQ textarea blocks:
  * Question?
  * Answer
