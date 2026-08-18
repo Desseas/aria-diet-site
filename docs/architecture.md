@@ -66,7 +66,7 @@ Prefer free approach first (dedicated Settings page or CPT). Use ACF Options onl
 4. Service CPT + `/services` routes — done  
 5. Homepage sections — done (CMS `homeFields` + dynamic services)  
 6. About — done (CMS `aboutFields` → `/about`)  
-7. Contact + form  
+7. Contact — done (methods only, no form; CMS `contactFields`)  
 8. Campaign CPT + `/campaigns/[slug]`  
 9. SEO metadata  
 10. Revalidation webhook  

@@ -1,14 +1,24 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { mainNav, siteBrand } from "@/lib/navigation";
+import type { SiteContact } from "@/lib/wordpress/types";
 
 const legalLinks = [
   { href: "/privacy", label: "Πολιτική Απορρήτου" },
   { href: "/cookies", label: "Πολιτική Cookies" },
 ];
 
-export function Footer() {
+type FooterProps = {
+  contact?: SiteContact;
+};
+
+export function Footer({ contact }: FooterProps) {
   const year = new Date().getFullYear();
+  const phone = contact?.phone?.trim() || "";
+  const email = contact?.email?.trim() || "";
+  const address = contact?.address?.trim() || "";
+  const instagramUrl = contact?.instagramUrl?.trim() || "";
+  const facebookUrl = contact?.facebookUrl?.trim() || "";
 
   return (
     <footer className="mt-auto border-t border-border bg-surface">
@@ -18,9 +28,9 @@ export function Footer() {
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted">
             {siteBrand.tagline}
           </p>
-          {siteBrand.address ? (
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
-              {siteBrand.address}
+          {address ? (
+            <p className="mt-4 max-w-xs whitespace-pre-line text-sm leading-relaxed text-muted">
+              {address}
             </p>
           ) : null}
         </div>
@@ -41,35 +51,49 @@ export function Footer() {
         <div>
           <h2 className="text-lg font-bold text-foreground">Επικοινωνία</h2>
           <ul className="mt-3 space-y-2 text-sm text-muted">
-            {siteBrand.phone ? (
+            {phone ? (
               <li>
-                <a href={`tel:${siteBrand.phone.replace(/\s/g, "")}`} className="hover:text-accent">
-                  {siteBrand.phone}
+                <a href={`tel:${phone.replace(/\s/g, "")}`} className="hover:text-accent">
+                  {phone}
                 </a>
               </li>
             ) : null}
-            {siteBrand.email ? (
+            {email ? (
               <li>
-                <a href={`mailto:${siteBrand.email}`} className="hover:text-accent">
-                  {siteBrand.email}
+                <a href={`mailto:${email}`} className="hover:text-accent">
+                  {email}
                 </a>
               </li>
             ) : null}
             <li>
               <Link href="/contact" className="hover:text-accent">
-                Φόρμα επικοινωνίας
+                Στοιχεία επικοινωνίας
               </Link>
             </li>
-            <li>
-              <a
-                href={siteBrand.instagramUrl}
-                className="hover:text-accent"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Instagram
-              </a>
-            </li>
+            {instagramUrl ? (
+              <li>
+                <a
+                  href={instagramUrl}
+                  className="hover:text-accent"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Instagram
+                </a>
+              </li>
+            ) : null}
+            {facebookUrl ? (
+              <li>
+                <a
+                  href={facebookUrl}
+                  className="hover:text-accent"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Facebook
+                </a>
+              </li>
+            ) : null}
           </ul>
         </div>
       </Container>

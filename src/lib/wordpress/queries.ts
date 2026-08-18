@@ -1,11 +1,13 @@
 import { fetchGraphQL } from "@/lib/wordpress/graphql";
 import type {
   GetAboutPageResult,
+  GetContactPageResult,
   GetHomePageResult,
   GetPagesResult,
   GetServiceBySlugResult,
   GetServicesResult,
   GetSiteSettingsResult,
+  SiteContact,
 } from "@/lib/wordpress/types";
 
 /**
@@ -136,6 +138,27 @@ export const GET_ABOUT_PAGE = /* GraphQL */ `
   }
 `;
 
+export const GET_CONTACT_PAGE = /* GraphQL */ `
+  query GetContactPage {
+    page(id: "contact", idType: URI) {
+      title
+      contactFields {
+        introTitle
+        introText
+        phone
+        email
+        officeAddress
+        openingHours
+        instagramUrl
+        facebookUrl
+        whatsappUrl
+        seoTitle
+        seoDescription
+      }
+    }
+  }
+`;
+
 export const GET_SERVICES = /* GraphQL */ `
   query GetServices {
     services(first: 50, where: { orderby: { field: DATE, order: ASC } }) {
@@ -211,6 +234,36 @@ export function getAboutPage() {
   return fetchGraphQL<GetAboutPageResult>(GET_ABOUT_PAGE, undefined, {
     tags: ["wordpress", "about"],
   });
+}
+
+export function getContactPage() {
+  return fetchGraphQL<GetContactPageResult>(GET_CONTACT_PAGE, undefined, {
+    tags: ["wordpress", "contact"],
+  });
+}
+
+export async function getSiteContact(): Promise<SiteContact> {
+  try {
+    const data = await getContactPage();
+    const fields = data.page?.contactFields;
+    return {
+      phone: fields?.phone?.trim() || "",
+      email: fields?.email?.trim() || "",
+      address: fields?.officeAddress?.trim() || "",
+      instagramUrl: fields?.instagramUrl?.trim() || "",
+      facebookUrl: fields?.facebookUrl?.trim() || "",
+      whatsappUrl: fields?.whatsappUrl?.trim() || "",
+    };
+  } catch {
+    return {
+      phone: "",
+      email: "",
+      address: "",
+      instagramUrl: "",
+      facebookUrl: "",
+      whatsappUrl: "",
+    };
+  }
 }
 
 export function getServices() {

@@ -600,4 +600,101 @@ add_action('acf/init', static function (): void {
 		'style'    => 'default',
 		'active'   => true,
 	]);
+
+	$contact_page_id = (string) (get_option('aria_contact_page_id') ?: '0');
+
+	acf_add_local_field_group([
+		'key'                => 'group_aria_contact',
+		'title'              => 'Contact Page',
+		'show_in_graphql'    => 1,
+		'graphql_field_name' => 'contactFields',
+		'map_graphql_types_from_location_rules' => 0,
+		'graphql_types'      => ['Page'],
+		'fields'             => [
+			[
+				'key'   => 'field_contact_intro_title',
+				'label' => 'Intro Title',
+				'name'  => 'intro_title',
+				'type'  => 'text',
+			],
+			[
+				'key'   => 'field_contact_intro_text',
+				'label' => 'Intro Text',
+				'name'  => 'intro_text',
+				'type'  => 'textarea',
+				'rows'  => 4,
+			],
+			[
+				'key'   => 'field_contact_phone',
+				'label' => 'Phone',
+				'name'  => 'phone',
+				'type'  => 'text',
+			],
+			[
+				'key'   => 'field_contact_email',
+				'label' => 'Email',
+				'name'  => 'email',
+				'type'  => 'email',
+			],
+			[
+				'key'   => 'field_contact_office_address',
+				'label' => 'Office Address',
+				'name'  => 'office_address',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			],
+			[
+				'key'          => 'field_contact_opening_hours',
+				'label'        => 'Opening Hours',
+				'name'         => 'opening_hours',
+				'type'         => 'textarea',
+				'instructions' => 'One line per schedule entry.',
+				'rows'         => 4,
+			],
+			[
+				'key'   => 'field_contact_instagram_url',
+				'label' => 'Instagram URL',
+				'name'  => 'instagram_url',
+				'type'  => 'url',
+			],
+			[
+				'key'   => 'field_contact_facebook_url',
+				'label' => 'Facebook URL',
+				'name'  => 'facebook_url',
+				'type'  => 'url',
+			],
+			[
+				'key'   => 'field_contact_whatsapp_url',
+				'label' => 'WhatsApp URL',
+				'name'  => 'whatsapp_url',
+				'type'  => 'url',
+				'instructions' => 'Optional. Example: https://wa.me/30XXXXXXXXXX',
+			],
+			[
+				'key'   => 'field_contact_seo_title',
+				'label' => 'SEO Title',
+				'name'  => 'seo_title',
+				'type'  => 'text',
+			],
+			[
+				'key'   => 'field_contact_seo_description',
+				'label' => 'SEO Description',
+				'name'  => 'seo_description',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			],
+		],
+		'location' => [
+			[
+				[
+					'param'    => 'page',
+					'operator' => '==',
+					'value'    => $contact_page_id,
+				],
+			],
+		],
+		'position' => 'normal',
+		'style'    => 'default',
+		'active'   => true,
+	]);
 });

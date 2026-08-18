@@ -176,3 +176,34 @@ export type GetAboutPageResult = {
     aboutFields: AboutFields | null;
   } | null;
 };
+
+export type ContactFields = {
+  introTitle: string | null;
+  introText: string | null;
+  phone: string | null;
+  email: string | null;
+  officeAddress: string | null;
+  openingHours: string | null;
+  instagramUrl: string | null;
+  facebookUrl: string | null;
+  whatsappUrl: string | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
+};
+
+export type GetContactPageResult = {
+  page: {
+    title: string;
+    contactFields: ContactFields | null;
+  } | null;
+};
+
+/** Shared contact details for header/footer */
+export type SiteContact = {
+  phone: string;
+  email: string;
+  address: string;
+  instagramUrl: string;
+  facebookUrl: string;
+  whatsappUrl: string;
+};

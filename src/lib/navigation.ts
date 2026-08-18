@@ -15,11 +15,6 @@ export const siteBrand = {
   personName: "Άρια Τσιάκα",
   personNameDisplay: "Άρια ΤΣΙΑΚΑ",
   tagline: "Διατροφή & ευεξία",
-  /** Temporary until CMS / client provides final contact details */
-  phone: "" as string,
-  email: "" as string,
-  address: "" as string,
-  instagramUrl: "https://www.instagram.com/",
   ctaLabel: "Κλείστε Ραντεβού",
   ctaHref: "/contact",
 } as const;

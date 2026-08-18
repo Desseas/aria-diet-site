@@ -5,10 +5,15 @@ import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { mainNav, siteBrand } from "@/lib/navigation";
+import type { SiteContact } from "@/lib/wordpress/types";
 
 type MobileMenuProps = {
   open: boolean;
   onClose: () => void;
+};
+
+type HeaderProps = {
+  contact?: SiteContact;
 };
 
 export function MobileMenu({ open, onClose }: MobileMenuProps) {
@@ -91,21 +96,23 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
   );
 }
 
-export function Header() {
+export function Header({ contact }: HeaderProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const phone = contact?.phone?.trim() || "";
+  const email = contact?.email?.trim() || "";
 
   return (
     <header className="sticky top-0 z-40">
       {/* Top utility + centered brand */}
       <div className="border-b border-border/50 bg-surface">
         <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-3 px-5 py-3 sm:px-8 sm:py-4">
-          {siteBrand.phone ? (
+          {phone ? (
             <a
-              href={`tel:${siteBrand.phone.replace(/\s/g, "")}`}
+              href={`tel:${phone.replace(/\s/g, "")}`}
               className="hidden text-sm font-medium text-accent sm:block"
             >
-              {siteBrand.phone}
+              {phone}
             </a>
           ) : (
             <span className="hidden sm:block" aria-hidden="true" />
@@ -121,12 +128,12 @@ export function Header() {
           </Link>
 
           <div className="flex items-center justify-end gap-3">
-            {siteBrand.email ? (
+            {email ? (
               <a
-                href={`mailto:${siteBrand.email}`}
+                href={`mailto:${email}`}
                 className="hidden text-sm font-medium text-accent md:block"
               >
-                {siteBrand.email}
+                {email}
               </a>
             ) : null}
             <button

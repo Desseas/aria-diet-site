@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { getSiteContact } from "@/lib/wordpress/queries";
 import "./globals.css";
 
 const display = Cormorant_Garamond({
@@ -26,13 +27,15 @@ export const metadata: Metadata = {
     "Διατροφική καθοδήγηση με επίκεντρο την υγεία, την ισορροπία και την αυτοπεποίθηση.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const contact = await getSiteContact();
+
   return (
     <html lang="el" className={`${display.variable} ${body.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
-        <Header />
+        <Header contact={contact} />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <Footer contact={contact} />
       </body>
     </html>
   );
