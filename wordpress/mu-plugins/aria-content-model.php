@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Aria Content Model
  * Description: Service/Campaign CPTs + page ACF field groups for the headless Άρια Τσιάκα site.
- * Version: 0.7.0
+ * Version: 0.8.0
  *
  * Loaded as a must-use plugin so the content model stays in git.
  */
@@ -424,42 +424,6 @@ add_action('acf/init', static function (): void {
 				'type'  => 'text',
 			],
 			[
-				'key'   => 'field_home_instagram_title',
-				'label' => 'Social Title',
-				'name'  => 'instagram_title',
-				'type'  => 'text',
-				'instructions' => 'One title for the social section (Instagram, Facebook, TikTok).',
-			],
-			[
-				'key'   => 'field_home_instagram_text',
-				'label' => 'Social Text',
-				'name'  => 'instagram_text',
-				'type'  => 'textarea',
-				'rows'  => 2,
-				'instructions' => 'Shared supporting text under the social title.',
-			],
-			[
-				'key'   => 'field_home_instagram_url',
-				'label' => 'Instagram URL',
-				'name'  => 'instagram_url',
-				'type'  => 'url',
-				'instructions' => 'Optional override. Leave empty to use Contact Instagram URL (or hide icon).',
-			],
-			[
-				'key'   => 'field_home_facebook_url',
-				'label' => 'Facebook URL',
-				'name'  => 'facebook_url',
-				'type'  => 'url',
-				'instructions' => 'Optional override. Leave empty to use Contact Facebook URL (or hide icon).',
-			],
-			[
-				'key'   => 'field_home_tiktok_url',
-				'label' => 'TikTok URL',
-				'name'  => 'tiktok_url',
-				'type'  => 'url',
-				'instructions' => 'Optional override. Leave empty to use Contact TikTok URL (or hide icon).',
-			],
-			[
 				'key'   => 'field_home_seo_title',
 				'label' => 'SEO Title',
 				'name'  => 'seo_title',
@@ -696,22 +660,25 @@ add_action('acf/init', static function (): void {
 				'rows'         => 4,
 			],
 			[
-				'key'   => 'field_contact_instagram_url',
-				'label' => 'Instagram URL',
-				'name'  => 'instagram_url',
-				'type'  => 'url',
+				'key'          => 'field_contact_instagram_url',
+				'label'        => 'Instagram URL',
+				'name'         => 'instagram_url',
+				'type'         => 'url',
+				'instructions' => 'Single source for Contact, footer, and homepage social icons. Leave empty to hide.',
 			],
 			[
-				'key'   => 'field_contact_facebook_url',
-				'label' => 'Facebook URL',
-				'name'  => 'facebook_url',
-				'type'  => 'url',
+				'key'          => 'field_contact_facebook_url',
+				'label'        => 'Facebook URL',
+				'name'         => 'facebook_url',
+				'type'         => 'url',
+				'instructions' => 'Single source for Contact, footer, and homepage social icons. Leave empty to hide.',
 			],
 			[
-				'key'   => 'field_contact_tiktok_url',
-				'label' => 'TikTok URL',
-				'name'  => 'tiktok_url',
-				'type'  => 'url',
+				'key'          => 'field_contact_tiktok_url',
+				'label'        => 'TikTok URL',
+				'name'         => 'tiktok_url',
+				'type'         => 'url',
+				'instructions' => 'Single source for Contact, footer, and homepage social icons. Leave empty to hide.',
 			],
 			[
 				'key'   => 'field_contact_whatsapp_url',
@@ -795,7 +762,7 @@ add_action('acf/init', static function (): void {
 				'name'         => 'dark_band',
 				'type'         => 'color_picker',
 				'default_value'=> '#3A403C',
-				'instructions' => 'Quote bands, dark split sections, Instagram CTA.',
+				'instructions' => 'Quote bands, dark split sections, social CTA.',
 			],
 			[
 				'key'          => 'field_theme_text',

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SocialIconLinks } from "@/components/ui/SocialIconLinks";
 import { mainNav, siteBrand } from "@/lib/navigation";
+import { resolveSocialUrl } from "@/lib/wordpress/content";
 import type { SiteContact } from "@/lib/wordpress/types";
 
 const legalLinks = [
@@ -21,17 +22,17 @@ export function Footer({ contact }: FooterProps) {
   const socialLinks = [
     {
       network: "instagram" as const,
-      href: contact?.instagramUrl?.trim() || "",
+      href: resolveSocialUrl(contact?.instagramUrl),
       label: "Instagram",
     },
     {
       network: "facebook" as const,
-      href: contact?.facebookUrl?.trim() || "",
+      href: resolveSocialUrl(contact?.facebookUrl),
       label: "Facebook",
     },
     {
       network: "tiktok" as const,
-      href: contact?.tiktokUrl?.trim() || "",
+      href: resolveSocialUrl(contact?.tiktokUrl),
       label: "TikTok",
     },
   ];

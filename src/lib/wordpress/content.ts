@@ -32,25 +32,15 @@ export function linesFromTextarea(value: string | null | undefined): string[] {
 }
 
 /**
- * Prefer a page-specific social URL; fall back to the shared Contact URL.
- * Bare network roots (e.g. https://instagram.com/) count as empty placeholders.
+ * Normalize a Contact social URL. Bare network roots (e.g. https://instagram.com/)
+ * count as empty placeholders so the icon stays hidden.
  */
-export function resolveSocialUrl(
-  pageUrl?: string | null,
-  sharedUrl?: string | null,
-): string {
-  const page = pageUrl?.trim() || "";
-  const shared = sharedUrl?.trim() || "";
-
-  if (page && !isBareSocialUrl(page)) {
-    return page;
+export function resolveSocialUrl(url?: string | null): string {
+  const value = url?.trim() || "";
+  if (!value || isBareSocialUrl(value)) {
+    return "";
   }
-
-  if (shared && !isBareSocialUrl(shared)) {
-    return shared;
-  }
-
-  return "";
+  return value;
 }
 
 function isBareSocialUrl(url: string): boolean {

@@ -143,23 +143,23 @@ export default async function HomePage() {
       />
 
       <SocialCta
-        title={fields?.instagramTitle}
-        text={fields?.instagramText}
+        title="Ακολουθήστε με στα Social Media"
+        text="Συμβουλές, συνταγές και καθημερινή έμπνευση."
         links={[
           {
             network: "instagram",
             label: "Instagram",
-            href: resolveSocialUrl(fields?.instagramUrl, contact.instagramUrl),
+            href: resolveSocialUrl(contact.instagramUrl),
           },
           {
             network: "facebook",
             label: "Facebook",
-            href: resolveSocialUrl(fields?.facebookUrl, contact.facebookUrl),
+            href: resolveSocialUrl(contact.facebookUrl),
           },
           {
             network: "tiktok",
             label: "TikTok",
-            href: resolveSocialUrl(fields?.tiktokUrl, contact.tiktokUrl),
+            href: resolveSocialUrl(contact.tiktokUrl),
           },
         ]}
       />
