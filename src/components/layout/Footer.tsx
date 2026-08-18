@@ -49,7 +49,6 @@ export function Footer({ contact }: FooterProps) {
               {address}
             </p>
           ) : null}
-          <SocialIconLinks links={socialLinks} className="mt-5" />
         </div>
 
         <div>
@@ -88,6 +87,7 @@ export function Footer({ contact }: FooterProps) {
               </Link>
             </li>
           </ul>
+          <SocialIconLinks links={socialLinks} className="mt-5" />
         </div>
       </Container>
 
