@@ -6,7 +6,7 @@ export function QuoteBand({ text }: QuoteBandProps) {
   if (!text?.trim()) return null;
 
   return (
-    <section className="relative overflow-hidden bg-[#6a554c] py-16 sm:py-20">
+    <section className="relative overflow-hidden bg-dark-band-mid py-16 sm:py-20">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-30 bg-geo-pattern"

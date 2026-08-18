@@ -70,7 +70,8 @@ Prefer free approach first (dedicated Settings page or CPT). Use ACF Options onl
 8. Campaign CPT — done (`/campaigns/[slug]` + slim CampaignChrome)  
 9. SEO metadata — done (canonical, Open Graph, sitemap, robots)  
 10. Revalidation webhook — done (`POST /api/revalidate` + WP mu-plugin)  
-11. Polish — done (404/error, skip link, shared metadata helper)
+11. Polish — done (404/error, skip link, shared metadata helper)  
+12. Brand colors from CMS — done (`Pages → Site Theme` → `themeFields`)
 
 ## Critical rules
 

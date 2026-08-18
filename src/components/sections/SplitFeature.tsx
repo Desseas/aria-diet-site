@@ -11,7 +11,6 @@ type SplitFeatureProps = {
   ctaLabel?: string | null;
   ctaHref?: string | null;
   image?: ResolvedImage | null;
-  imageLabel?: string;
   reverse?: boolean;
   dark?: boolean;
 };
@@ -24,12 +23,11 @@ export function SplitFeature({
   ctaLabel,
   ctaHref,
   image,
-  imageLabel = "Photo placeholder",
   reverse = false,
   dark = false,
 }: SplitFeatureProps) {
   return (
-    <section className={dark ? "bg-[#5c4a42] text-white" : "bg-geo-pattern"}>
+    <section className={dark ? "bg-dark-band text-white" : "bg-geo-pattern"}>
       <div
         className={`mx-auto grid max-w-7xl lg:grid-cols-2 ${
           reverse ? "lg:[&>*:first-child]:order-2" : ""
@@ -63,9 +61,7 @@ export function SplitFeature({
 
         <div
           className={`relative min-h-[320px] sm:min-h-[420px] ${
-            dark
-              ? "bg-gradient-to-br from-[#6d584f] via-[#4f3d37] to-[#3a2c28]"
-              : "bg-gradient-to-br from-[#e8d8cf] via-[#d7c0b4] to-[#b99a8b]"
+            dark ? "bg-dark-fallback" : "bg-soft-fallback"
           }`}
         >
           {image ? (
@@ -76,26 +72,7 @@ export function SplitFeature({
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
-          ) : (
-            <div className="absolute inset-0 flex items-center justify-center p-8">
-              <div className="max-w-xs text-center">
-                <p
-                  className={`text-sm uppercase tracking-[0.24em] ${
-                    dark ? "text-white/55" : "text-accent"
-                  }`}
-                >
-                  Photo placeholder
-                </p>
-                <p
-                  className={`mt-3 text-lg font-medium leading-snug ${
-                    dark ? "text-white/90" : "text-foreground/80"
-                  }`}
-                >
-                  {imageLabel}
-                </p>
-              </div>
-            </div>
-          )}
+          ) : null}
         </div>
       </div>
     </section>

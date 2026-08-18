@@ -23,6 +23,11 @@ const nextConfig: NextConfig = {
         hostname: wordpressHostname,
         pathname: "/wp-content/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
     ],
   },
 };

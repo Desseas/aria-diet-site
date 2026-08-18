@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ServiceCard } from "@/components/service/ServiceCard";
 import { Button } from "@/components/ui/Button";
+import { resolveHeroImage } from "@/lib/hero-fallbacks";
 import { buildPageMetadata } from "@/lib/seo";
 import { getServices } from "@/lib/wordpress/queries";
 
@@ -11,6 +12,7 @@ export const metadata: Metadata = buildPageMetadata({
   description:
     "Γνωρίστε τις διαιτολογικές υπηρεσίες της Άριας Τσιάκα — εξατομικευμένη καθοδήγηση και προγράμματα ευεξίας.",
   path: "/services",
+  image: resolveHeroImage(null, "services").src,
 });
 
 export default async function ServicesPage() {
@@ -19,16 +21,12 @@ export default async function ServicesPage() {
 
   return (
     <>
-      <section className="border-b border-border bg-geo-pattern py-16 sm:py-20">
-        <Container>
-          <SectionHeading
-            as="h1"
-            eyebrow="Υπηρεσίες"
-            title="Διαιτολογικές Υπηρεσίες"
-            description="Δύο ξεκάθαρες διαδρομές — με χώρο να προστεθούν κι άλλες όταν χρειαστεί."
-          />
-        </Container>
-      </section>
+      <PageHero
+        eyebrow="Υπηρεσίες"
+        title="Διαιτολογικές Υπηρεσίες"
+        description="Δύο ξεκάθαρες διαδρομές — με χώρο να προστεθούν κι άλλες όταν χρειαστεί."
+        image={resolveHeroImage(null, "services")}
+      />
 
       <section className="py-14 sm:py-20">
         <Container className="space-y-10">

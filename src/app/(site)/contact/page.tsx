@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { PageHero } from "@/components/sections/PageHero";
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { resolveHeroImage } from "@/lib/hero-fallbacks";
 import { buildPageMetadata } from "@/lib/seo";
-import { linesFromTextarea } from "@/lib/wordpress/content";
+import { linesFromTextarea, resolveWpImage } from "@/lib/wordpress/content";
 import { getContactPage } from "@/lib/wordpress/queries";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -14,11 +15,16 @@ export async function generateMetadata(): Promise<Metadata> {
     fields?.seoDescription?.trim() ||
     fields?.introText?.trim() ||
     undefined;
+  const image = resolveHeroImage(
+    resolveWpImage(fields?.heroImage, title),
+    "contact",
+  );
 
   return buildPageMetadata({
     title,
     description,
     path: "/contact",
+    image: image.src,
     absoluteTitle: true,
   });
 }
@@ -89,16 +95,15 @@ export default async function ContactPage() {
 
   return (
     <>
-      <section className="border-b border-border bg-geo-pattern py-16 sm:py-20">
-        <Container>
-          <SectionHeading
-            as="h1"
-            eyebrow="Επικοινωνία"
-            title={title}
-            description={fields?.introText ?? undefined}
-          />
-        </Container>
-      </section>
+      <PageHero
+        eyebrow="Επικοινωνία"
+        title={title}
+        description={fields?.introText}
+        image={resolveHeroImage(
+          resolveWpImage(fields?.heroImage, title),
+          "contact",
+        )}
+      />
 
       <section className="py-14 sm:py-20">
         <Container className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
@@ -115,26 +120,37 @@ export default async function ContactPage() {
             ) : (
               <ul className="mt-8 divide-y divide-border border-y border-border">
                 {methods.map((method) => (
-                  <li key={method.label} className="flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                  <li
+                    key={method.label}
+                    className="flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                  >
                     <span className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
                       {method.label}
                     </span>
-                    <a
-                      href={method.href}
-                      className="text-base text-foreground transition-colors hover:text-accent sm:text-right"
-                      {...(method.external
-                        ? { target: "_blank", rel: "noopener noreferrer" }
-                        : {})}
-                    >
-                      {method.value}
-                    </a>
+                    {method.external ? (
+                      <a
+                        href={method.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-base text-foreground transition-colors hover:text-accent sm:text-right"
+                      >
+                        {method.value}
+                      </a>
+                    ) : (
+                      <a
+                        href={method.href}
+                        className="text-base text-foreground transition-colors hover:text-accent sm:text-right"
+                      >
+                        {method.value}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
             )}
           </div>
 
-          <aside className="space-y-8 rounded-none border border-border bg-surface p-6 sm:p-8">
+          <aside className="space-y-8">
             {fields?.officeAddress?.trim() ? (
               <div>
                 <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
@@ -151,18 +167,12 @@ export default async function ContactPage() {
                 <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
                   Ώρες
                 </h2>
-                <ul className="mt-3 space-y-2 text-base leading-relaxed text-foreground">
+                <ul className="mt-3 space-y-2 text-base text-foreground">
                   {hours.map((line) => (
                     <li key={line}>{line}</li>
                   ))}
                 </ul>
               </div>
-            ) : null}
-
-            {!fields?.officeAddress?.trim() && hours.length === 0 ? (
-              <p className="text-sm text-muted">
-                Προσθέστε διεύθυνση και ωράριο από το WordPress όταν είναι έτοιμα.
-              </p>
             ) : null}
           </aside>
         </Container>

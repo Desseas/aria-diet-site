@@ -1,23 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  /* Matched to klifes.gr visual language */
+  /* Defaults — overridden at runtime by CMS Brand Colors (Site Theme page) */
   --background: #ffffff;
   --surface: #ffffff;
-  --surface-muted: #f7f1ee;
-  --pattern: #f4ece8;
-  --text: #333333;
-  --text-muted: rgba(47, 56, 84, 0.55);
-  --accent: #891405;
-  --accent-hover: #6e1004;
-  --accent-soft: #ffe2e2;
+  --surface-muted: #f6f3ee;
+  --pattern: #f2efe9;
+  --text: #2a2e2c;
+  --text-muted: rgba(42, 46, 44, 0.55);
+  --accent: #3d6b5c;
+  --accent-hover: #31564a;
+  --accent-soft: #e4efe9;
   --accent-bright: #e1306c;
-  --nav: #cbb9a8;
-  --nav-active: #d8c7b8;
+  --nav: #c5b8ab;
+  --nav-active: #d4c9be;
   --nav-text: #ffffff;
-  --border: #e8ddd7;
-  --focus: #891405;
+  --border: #e4ddd4;
+  --focus: #3d6b5c;
   --hero-overlay: rgba(40, 28, 24, 0.42);
+  --dark-band: #3a403c;
+  --dark-band-mid: #323834;
+  --dark-band-deep: #2a2f2c;
+  --soft-from: #e8d8cf;
+  --soft-via: #d7c0b4;
+  --soft-to: #b99a8b;
+  --hero-from: #a8897a;
+  --hero-via: #7d5f55;
+  --hero-to: #4a3630;
 }
 
 @theme inline {
@@ -36,6 +45,9 @@
   --color-nav-text: var(--nav-text);
   --color-border: var(--border);
   --color-hero-overlay: var(--hero-overlay);
+  --color-dark-band: var(--dark-band);
+  --color-dark-band-mid: var(--dark-band-mid);
+  --color-dark-band-deep: var(--dark-band-deep);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
 }
@@ -70,9 +82,64 @@ body {
 .bg-geo-pattern {
   background-color: var(--pattern);
   background-image:
-    linear-gradient(135deg, transparent 24%, rgba(203, 185, 168, 0.28) 25%, rgba(203, 185, 168, 0.28) 26%, transparent 27%, transparent 74%, rgba(203, 185, 168, 0.28) 75%, rgba(203, 185, 168, 0.28) 76%, transparent 77%),
-    linear-gradient(45deg, transparent 24%, rgba(137, 20, 5, 0.04) 25%, rgba(137, 20, 5, 0.04) 26%, transparent 27%, transparent 74%, rgba(137, 20, 5, 0.04) 75%, rgba(137, 20, 5, 0.04) 76%, transparent 77%);
+    linear-gradient(
+      135deg,
+      transparent 24%,
+      color-mix(in srgb, var(--nav) 28%, transparent) 25%,
+      color-mix(in srgb, var(--nav) 28%, transparent) 26%,
+      transparent 27%,
+      transparent 74%,
+      color-mix(in srgb, var(--nav) 28%, transparent) 75%,
+      color-mix(in srgb, var(--nav) 28%, transparent) 76%,
+      transparent 77%
+    ),
+    linear-gradient(
+      45deg,
+      transparent 24%,
+      color-mix(in srgb, var(--accent) 4%, transparent) 25%,
+      color-mix(in srgb, var(--accent) 4%, transparent) 26%,
+      transparent 27%,
+      transparent 74%,
+      color-mix(in srgb, var(--accent) 4%, transparent) 75%,
+      color-mix(in srgb, var(--accent) 4%, transparent) 76%,
+      transparent 77%
+    );
   background-size: 42px 42px;
+}
+
+.bg-hero-fallback {
+  background-image: linear-gradient(
+    to bottom right,
+    var(--hero-from),
+    var(--hero-via),
+    var(--hero-to)
+  );
+}
+
+.bg-soft-fallback {
+  background-image: linear-gradient(
+    to bottom right,
+    var(--soft-from),
+    var(--soft-via),
+    var(--soft-to)
+  );
+}
+
+.bg-dark-fallback {
+  background-image: linear-gradient(
+    to bottom right,
+    color-mix(in srgb, var(--dark-band) 85%, white),
+    var(--dark-band),
+    var(--dark-band-deep)
+  );
+}
+
+.bg-instagram-glow {
+  background-image: radial-gradient(
+    circle at 70% 30%,
+    color-mix(in srgb, var(--accent-bright) 22%, transparent),
+    transparent 50%
+  );
 }
 
 @keyframes fadeUp {

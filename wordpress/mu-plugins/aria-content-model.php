@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Aria Content Model
  * Description: Service/Campaign CPTs + page ACF field groups for the headless Άρια Τσιάκα site.
- * Version: 0.3.0
+ * Version: 0.4.0
  *
  * Loaded as a must-use plugin so the content model stays in git.
  */
@@ -649,6 +649,15 @@ add_action('acf/init', static function (): void {
 				'rows'  => 4,
 			],
 			[
+				'key'           => 'field_contact_hero_image',
+				'label'         => 'Hero Image',
+				'name'          => 'hero_image',
+				'type'          => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+				'instructions'  => 'Full-bleed banner behind the contact title. If empty, a curated placeholder is shown.',
+			],
+			[
 				'key'   => 'field_contact_phone',
 				'label' => 'Phone',
 				'name'  => 'phone',
@@ -721,6 +730,79 @@ add_action('acf/init', static function (): void {
 		'style'    => 'default',
 		'active'   => true,
 	]);
+
+	$theme_page_id = (string) aria_ensure_theme_page();
+
+	acf_add_local_field_group([
+		'key'                => 'group_aria_theme',
+		'title'              => 'Brand Colors',
+		'show_in_graphql'    => 1,
+		'graphql_field_name' => 'themeFields',
+		'map_graphql_types_from_location_rules' => 0,
+		'graphql_types'      => ['Page'],
+		'fields'             => [
+			[
+				'key'          => 'field_theme_accent',
+				'label'        => 'Accent',
+				'name'         => 'accent',
+				'type'         => 'color_picker',
+				'default_value'=> '#3D6B5C',
+				'instructions' => 'Buttons, links, brand wordmark.',
+			],
+			[
+				'key'          => 'field_theme_nav',
+				'label'        => 'Nav bar',
+				'name'         => 'nav',
+				'type'         => 'color_picker',
+				'default_value'=> '#C5B8AB',
+				'instructions' => 'Main navigation background.',
+			],
+			[
+				'key'          => 'field_theme_pattern',
+				'label'        => 'Pattern / blush',
+				'name'         => 'pattern',
+				'type'         => 'color_picker',
+				'default_value'=> '#F2EFE9',
+				'instructions' => 'Soft section backgrounds.',
+			],
+			[
+				'key'          => 'field_theme_surface_muted',
+				'label'        => 'Surface muted',
+				'name'         => 'surface_muted',
+				'type'         => 'color_picker',
+				'default_value'=> '#F6F3EE',
+			],
+			[
+				'key'          => 'field_theme_dark_band',
+				'label'        => 'Dark band',
+				'name'         => 'dark_band',
+				'type'         => 'color_picker',
+				'default_value'=> '#3A403C',
+				'instructions' => 'Quote bands, dark split sections, Instagram CTA.',
+			],
+			[
+				'key'          => 'field_theme_text',
+				'label'        => 'Body text',
+				'name'         => 'text',
+				'type'         => 'color_picker',
+				'default_value'=> '#2A2E2C',
+			],
+		],
+		'location' => [
+			[
+				[
+					'param'    => 'page',
+					'operator' => '==',
+					'value'    => $theme_page_id,
+				],
+			],
+		],
+		'position' => 'normal',
+		'style'    => 'default',
+		'active'   => true,
+	]);
+
+	aria_seed_theme_defaults((int) $theme_page_id);
 
 	acf_add_local_field_group([
 		'key'                => 'group_aria_campaign',
@@ -837,3 +919,74 @@ add_action('acf/init', static function (): void {
 		'active'   => true,
 	]);
 });
+
+/**
+ * Ensure the singleton Site Theme page exists and return its ID.
+ */
+function aria_ensure_theme_page(): int
+{
+	$existing_id = (int) get_option('aria_theme_page_id');
+	if ($existing_id > 0) {
+		$post = get_post($existing_id);
+		if ($post instanceof WP_Post && $post->post_type === 'page') {
+			return $existing_id;
+		}
+	}
+
+	$by_slug = get_page_by_path('site-theme');
+	if ($by_slug instanceof WP_Post) {
+		update_option('aria_theme_page_id', $by_slug->ID);
+		return (int) $by_slug->ID;
+	}
+
+	$page_id = wp_insert_post(
+		[
+			'post_type'    => 'page',
+			'post_status'  => 'publish',
+			'post_title'   => 'Site Theme',
+			'post_name'    => 'site-theme',
+			'post_content' => 'Brand colors for the Next.js frontend. Edit the Brand Colors fields below — this page is not shown in the site navigation.',
+		],
+		true
+	);
+
+	if (is_wp_error($page_id) || !is_int($page_id) || $page_id <= 0) {
+		return 0;
+	}
+
+	update_option('aria_theme_page_id', $page_id);
+
+	return $page_id;
+}
+
+/**
+ * Fill default brand colors once so GraphQL never returns empty pickers.
+ */
+function aria_seed_theme_defaults(int $page_id): void
+{
+	if ($page_id <= 0 || !function_exists('update_field')) {
+		return;
+	}
+
+	if (get_option('aria_theme_defaults_seeded')) {
+		return;
+	}
+
+	$defaults = [
+		'accent'         => '#3D6B5C',
+		'nav'            => '#C5B8AB',
+		'pattern'        => '#F2EFE9',
+		'surface_muted'  => '#F6F3EE',
+		'dark_band'      => '#3A403C',
+		'text'           => '#2A2E2C',
+	];
+
+	foreach ($defaults as $name => $value) {
+		$current = get_field($name, $page_id);
+		if ($current === null || $current === false || $current === '') {
+			update_field($name, $value, $page_id);
+		}
+	}
+
+	update_option('aria_theme_defaults_seeded', 1);
+}

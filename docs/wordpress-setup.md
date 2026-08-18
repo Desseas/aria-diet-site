@@ -138,9 +138,17 @@ Do **not** buy Divi/Elementor. ACF Pro is the only paid CMS add-on we might just
 
 Docker credentials in `docker-compose.yml` are for **local only**. Never reuse them in production.
 
-## Revalidation (frontend cache)
+## Brand colors (Site Theme)
 
-After content changes, WordPress notifies Next.js. See [`docs/revalidation.md`](./revalidation.md).
+Edit the look of the Next.js frontend without touching code:
+
+1. WP Admin → **Pages → Site Theme**
+2. Change the **Brand Colors** pickers (Accent, Nav, Pattern, Surface muted, Dark band, Body text)
+3. **Update**
+
+The frontend injects these as CSS variables on every page. Layout stays in Next.js — pickers only change the palette.
+
+Hover / soft / border tones are derived automatically from Accent / Nav / Pattern.
 
 ## Next steps
 

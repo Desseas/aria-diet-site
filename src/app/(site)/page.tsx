@@ -7,6 +7,7 @@ import { InstagramCta } from "@/components/sections/InstagramCta";
 import { QuoteBand } from "@/components/sections/QuoteBand";
 import { SplitFeature } from "@/components/sections/SplitFeature";
 import { ServiceFaq } from "@/components/service/ServiceFaq";
+import { resolveContentImage, resolveHeroImage } from "@/lib/hero-fallbacks";
 import { buildPageMetadata } from "@/lib/seo";
 import {
   faqFromTextarea,
@@ -22,13 +23,16 @@ export async function generateMetadata(): Promise<Metadata> {
   const description =
     fields?.seoDescription?.trim() ||
     "Διατροφική καθοδήγηση με επίκεντρο την υγεία, την ισορροπία και την αυτοπεποίθηση.";
-  const image = resolveWpImage(fields?.heroImage, title);
+  const image = resolveHeroImage(
+    resolveWpImage(fields?.heroImage, title),
+    "home",
+  );
 
   return buildPageMetadata({
     title,
     description,
     path: "/",
-    image: image?.src,
+    image: image.src,
     absoluteTitle: true,
   });
 }
@@ -56,7 +60,10 @@ export default async function HomePage() {
         primaryHref={fields?.heroPrimaryUrl}
         secondaryLabel={fields?.heroSecondaryLabel}
         secondaryHref={fields?.heroSecondaryUrl}
-        image={resolveWpImage(fields?.heroImage, heroTitle)}
+        image={resolveHeroImage(
+          resolveWpImage(fields?.heroImage, heroTitle),
+          "home",
+        )}
       />
 
       {(fields?.aboutTitle || fields?.aboutText) && (
@@ -66,8 +73,10 @@ export default async function HomePage() {
           description={fields?.aboutText}
           ctaLabel={fields?.aboutButtonLabel}
           ctaHref={fields?.aboutButtonUrl}
-          image={resolveWpImage(fields?.aboutImage, fields?.aboutTitle ?? "About")}
-          imageLabel="About photo placeholder"
+          image={resolveContentImage(
+            resolveWpImage(fields?.aboutImage, fields?.aboutTitle ?? "About"),
+            "homeAbout",
+          )}
           reverse
           dark
         />
@@ -84,11 +93,13 @@ export default async function HomePage() {
         <SplitFeature
           title={fields?.approachTitle?.trim() || "Η προσέγγισή μου"}
           htmlContent={fields?.approachContent}
-          image={resolveWpImage(
-            fields?.approachImage,
-            fields?.approachTitle ?? "Approach",
+          image={resolveContentImage(
+            resolveWpImage(
+              fields?.approachImage,
+              fields?.approachTitle ?? "Approach",
+            ),
+            "homeApproach",
           )}
-          imageLabel="Approach photo placeholder"
         />
       )}
 
@@ -98,11 +109,13 @@ export default async function HomePage() {
           description={fields?.philosophyContent}
           ctaLabel={fields?.philosophyCtaLabel}
           ctaHref={fields?.philosophyCtaUrl}
-          image={resolveWpImage(
-            fields?.philosophyImage,
-            fields?.philosophyTitle ?? "Philosophy",
+          image={resolveContentImage(
+            resolveWpImage(
+              fields?.philosophyImage,
+              fields?.philosophyTitle ?? "Philosophy",
+            ),
+            "homePhilosophy",
           )}
-          imageLabel="Philosophy photo placeholder"
           reverse
         />
       )}

@@ -180,6 +180,7 @@ export type GetAboutPageResult = {
 export type ContactFields = {
   introTitle: string | null;
   introText: string | null;
+  heroImage: WpMediaEdge;
   phone: string | null;
   email: string | null;
   officeAddress: string | null;
@@ -206,6 +207,22 @@ export type SiteContact = {
   instagramUrl: string;
   facebookUrl: string;
   whatsappUrl: string;
+};
+
+export type ThemeFields = {
+  accent: string | null;
+  nav: string | null;
+  pattern: string | null;
+  surfaceMuted: string | null;
+  darkBand: string | null;
+  text: string | null;
+};
+
+export type GetSiteThemeResult = {
+  page: {
+    title: string;
+    themeFields: ThemeFields | null;
+  } | null;
 };
 
 export type CampaignDetails = {

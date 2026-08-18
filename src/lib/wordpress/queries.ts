@@ -9,6 +9,7 @@ import type {
   GetServiceBySlugResult,
   GetServicesResult,
   GetSiteSettingsResult,
+  GetSiteThemeResult,
   SiteContact,
 } from "@/lib/wordpress/types";
 
@@ -147,6 +148,9 @@ export const GET_CONTACT_PAGE = /* GraphQL */ `
       contactFields {
         introTitle
         introText
+        heroImage {
+          ${MEDIA_FIELDS}
+        }
         phone
         email
         officeAddress
@@ -156,6 +160,22 @@ export const GET_CONTACT_PAGE = /* GraphQL */ `
         whatsappUrl
         seoTitle
         seoDescription
+      }
+    }
+  }
+`;
+
+export const GET_SITE_THEME = /* GraphQL */ `
+  query GetSiteTheme {
+    page(id: "site-theme", idType: URI) {
+      title
+      themeFields {
+        accent
+        nav
+        pattern
+        surfaceMuted
+        darkBand
+        text
       }
     }
   }
@@ -283,6 +303,12 @@ export function getAboutPage() {
 export function getContactPage() {
   return fetchGraphQL<GetContactPageResult>(GET_CONTACT_PAGE, undefined, {
     tags: ["wordpress", "contact"],
+  });
+}
+
+export function getSiteTheme() {
+  return fetchGraphQL<GetSiteThemeResult>(GET_SITE_THEME, undefined, {
+    tags: ["wordpress", "theme"],
   });
 }
 

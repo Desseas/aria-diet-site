@@ -53,8 +53,19 @@ function resolveFromPostType(postType: string, slug?: string) {
         tags.add("contact");
         paths.add("/contact");
       }
+      if (slug === "site-theme") {
+        tags.add("theme");
+        // Theme CSS is injected in the root layout — refresh all routes.
+        paths.add("/");
+        paths.add("/about");
+        paths.add("/services");
+        paths.add("/contact");
+      }
       // Unknown pages: refresh home + common pages safely
-      if (slug && !["about", "contact", "home", "front-page"].includes(slug)) {
+      if (
+        slug &&
+        !["about", "contact", "home", "front-page", "site-theme"].includes(slug)
+      ) {
         tags.add("home");
         paths.add("/");
       }
@@ -126,7 +137,11 @@ export async function POST(request: Request) {
   }
 
   for (const path of paths) {
-    revalidatePath(path);
+    if (tags.includes("theme") && path === "/") {
+      revalidatePath(path, "layout");
+    } else {
+      revalidatePath(path);
+    }
   }
 
   return NextResponse.json({
