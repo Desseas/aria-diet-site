@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Aria Content Model
- * Description: Service CPT + homepage/Service ACF field groups for the headless Άρια Τσιάκα site.
- * Version: 0.2.0
+ * Description: Service/Campaign CPTs + page ACF field groups for the headless Άρια Τσιάκα site.
+ * Version: 0.3.0
  *
  * Loaded as a must-use plugin so the content model stays in git.
  */
@@ -10,7 +10,7 @@
 declare(strict_types=1);
 
 /**
- * Register Service custom post type and expose it to WPGraphQL.
+ * Register Service + Campaign custom post types and expose them to WPGraphQL.
  */
 add_action('init', static function (): void {
 	register_post_type(
@@ -34,6 +34,30 @@ add_action('init', static function (): void {
 			'show_in_graphql'     => true,
 			'graphql_single_name' => 'service',
 			'graphql_plural_name' => 'services',
+		]
+	);
+
+	register_post_type(
+		'campaign',
+		[
+			'labels'              => [
+				'name'          => 'Campaigns',
+				'singular_name' => 'Campaign',
+				'add_new_item'  => 'Add New Campaign',
+				'edit_item'     => 'Edit Campaign',
+				'view_item'     => 'View Campaign',
+				'search_items'  => 'Search Campaigns',
+				'not_found'     => 'No campaigns found',
+			],
+			'public'              => true,
+			'has_archive'         => false,
+			'rewrite'             => ['slug' => 'campaign'],
+			'show_in_rest'        => true,
+			'menu_icon'           => 'dashicons-megaphone',
+			'supports'            => ['title', 'thumbnail', 'revisions'],
+			'show_in_graphql'     => true,
+			'graphql_single_name' => 'campaign',
+			'graphql_plural_name' => 'campaigns',
 		]
 	);
 });
@@ -690,6 +714,121 @@ add_action('acf/init', static function (): void {
 					'param'    => 'page',
 					'operator' => '==',
 					'value'    => $contact_page_id,
+				],
+			],
+		],
+		'position' => 'normal',
+		'style'    => 'default',
+		'active'   => true,
+	]);
+
+	acf_add_local_field_group([
+		'key'                => 'group_aria_campaign',
+		'title'              => 'Campaign Details',
+		'show_in_graphql'    => 1,
+		'graphql_field_name' => 'campaignDetails',
+		'map_graphql_types_from_location_rules' => 0,
+		'graphql_types'      => ['Campaign'],
+		'fields'             => [
+			[
+				'key'   => 'field_campaign_eyebrow',
+				'label' => 'Eyebrow',
+				'name'  => 'eyebrow',
+				'type'  => 'text',
+			],
+			[
+				'key'   => 'field_campaign_hero_title',
+				'label' => 'Hero Title',
+				'name'  => 'hero_title',
+				'type'  => 'text',
+			],
+			[
+				'key'   => 'field_campaign_hero_description',
+				'label' => 'Hero Description',
+				'name'  => 'hero_description',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			],
+			[
+				'key'           => 'field_campaign_hero_image',
+				'label'         => 'Hero Image',
+				'name'          => 'hero_image',
+				'type'          => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+			],
+			[
+				'key'          => 'field_campaign_introduction',
+				'label'        => 'Introduction',
+				'name'         => 'introduction',
+				'type'         => 'wysiwyg',
+				'tabs'         => 'all',
+				'toolbar'      => 'basic',
+				'media_upload' => 0,
+			],
+			[
+				'key'          => 'field_campaign_body_content',
+				'label'        => 'Main Content',
+				'name'         => 'body_content',
+				'type'         => 'wysiwyg',
+				'tabs'         => 'all',
+				'toolbar'      => 'basic',
+				'media_upload' => 1,
+			],
+			[
+				'key'           => 'field_campaign_secondary_image',
+				'label'         => 'Secondary Image',
+				'name'          => 'secondary_image',
+				'type'          => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+			],
+			[
+				'key'   => 'field_campaign_cta_title',
+				'label' => 'CTA Title',
+				'name'  => 'cta_title',
+				'type'  => 'text',
+			],
+			[
+				'key'   => 'field_campaign_cta_text',
+				'label' => 'CTA Text',
+				'name'  => 'cta_text',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			],
+			[
+				'key'   => 'field_campaign_cta_button_label',
+				'label' => 'CTA Button Label',
+				'name'  => 'cta_button_label',
+				'type'  => 'text',
+			],
+			[
+				'key'   => 'field_campaign_cta_button_url',
+				'label' => 'CTA Button URL',
+				'name'  => 'cta_button_url',
+				'type'  => 'text',
+				'instructions' => 'Usually /contact — this is the URL you share from Instagram.',
+			],
+			[
+				'key'   => 'field_campaign_seo_title',
+				'label' => 'SEO Title',
+				'name'  => 'seo_title',
+				'type'  => 'text',
+			],
+			[
+				'key'   => 'field_campaign_seo_description',
+				'label' => 'SEO Description',
+				'name'  => 'seo_description',
+				'type'  => 'textarea',
+				'rows'  => 3,
+			],
+		],
+		'location' => [
+			[
+				[
+					'param'    => 'post_type',
+					'operator' => '==',
+					'value'    => 'campaign',
 				],
 			],
 		],

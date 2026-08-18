@@ -67,7 +67,7 @@ Prefer free approach first (dedicated Settings page or CPT). Use ACF Options onl
 5. Homepage sections — done (CMS `homeFields` + dynamic services)  
 6. About — done (CMS `aboutFields` → `/about`)  
 7. Contact — done (methods only, no form; CMS `contactFields`)  
-8. Campaign CPT + `/campaigns/[slug]`  
+8. Campaign CPT — done (`/campaigns/[slug]` + slim CampaignChrome)  
 9. SEO metadata  
 10. Revalidation webhook  
 11. Polish (a11y, CWV, 404/error)

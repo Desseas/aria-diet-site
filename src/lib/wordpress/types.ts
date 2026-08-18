@@ -207,3 +207,37 @@ export type SiteContact = {
   facebookUrl: string;
   whatsappUrl: string;
 };
+
+export type CampaignDetails = {
+  eyebrow: string | null;
+  heroTitle: string | null;
+  heroDescription: string | null;
+  heroImage: WpMediaEdge;
+  introduction: string | null;
+  bodyContent: string | null;
+  secondaryImage: WpMediaEdge;
+  ctaTitle: string | null;
+  ctaText: string | null;
+  ctaButtonLabel: string | null;
+  ctaButtonUrl: string | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
+};
+
+export type CampaignNode = {
+  id: string;
+  databaseId: number;
+  title: string;
+  slug: string;
+  campaignDetails: CampaignDetails | null;
+};
+
+export type GetCampaignsResult = {
+  campaigns: {
+    nodes: Array<Pick<CampaignNode, "id" | "slug" | "title">>;
+  };
+};
+
+export type GetCampaignBySlugResult = {
+  campaign: CampaignNode | null;
+};

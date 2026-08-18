@@ -1,6 +1,8 @@
 import { fetchGraphQL } from "@/lib/wordpress/graphql";
 import type {
   GetAboutPageResult,
+  GetCampaignBySlugResult,
+  GetCampaignsResult,
   GetContactPageResult,
   GetHomePageResult,
   GetPagesResult,
@@ -159,6 +161,48 @@ export const GET_CONTACT_PAGE = /* GraphQL */ `
   }
 `;
 
+export const GET_CAMPAIGNS = /* GraphQL */ `
+  query GetCampaigns {
+    campaigns(first: 100) {
+      nodes {
+        id
+        title
+        slug
+      }
+    }
+  }
+`;
+
+export const GET_CAMPAIGN_BY_SLUG = /* GraphQL */ `
+  query GetCampaignBySlug($slug: ID!) {
+    campaign(id: $slug, idType: SLUG) {
+      id
+      databaseId
+      title
+      slug
+      campaignDetails {
+        eyebrow
+        heroTitle
+        heroDescription
+        heroImage {
+          ${MEDIA_FIELDS}
+        }
+        introduction
+        bodyContent
+        secondaryImage {
+          ${MEDIA_FIELDS}
+        }
+        ctaTitle
+        ctaText
+        ctaButtonLabel
+        ctaButtonUrl
+        seoTitle
+        seoDescription
+      }
+    }
+  }
+`;
+
 export const GET_SERVICES = /* GraphQL */ `
   query GetServices {
     services(first: 50, where: { orderby: { field: DATE, order: ASC } }) {
@@ -264,6 +308,22 @@ export async function getSiteContact(): Promise<SiteContact> {
       whatsappUrl: "",
     };
   }
+}
+
+export function getCampaigns() {
+  return fetchGraphQL<GetCampaignsResult>(GET_CAMPAIGNS, undefined, {
+    tags: ["wordpress", "campaigns"],
+  });
+}
+
+export function getCampaignBySlug(slug: string) {
+  return fetchGraphQL<GetCampaignBySlugResult>(
+    GET_CAMPAIGN_BY_SLUG,
+    { slug },
+    {
+      tags: ["wordpress", "campaigns", `campaign:${slug}`],
+    },
+  );
 }
 
 export function getServices() {
