@@ -73,6 +73,10 @@ export const IMAGE_FALLBACKS = {
     "photo-1511690743698-d9d85f2fbf38",
     "Φρέσκα φρούτα και καλοκαιρινή ενέργεια",
   ),
+  legal: unsplash(
+    "photo-1450101499163-c8848c66ca85",
+    "Έγγραφα και νομικές πληροφορίες",
+  ),
 } as const;
 
 export type ImageFallbackKey = keyof typeof IMAGE_FALLBACKS;

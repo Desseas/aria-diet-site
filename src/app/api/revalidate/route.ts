@@ -53,6 +53,16 @@ function resolveFromPostType(postType: string, slug?: string) {
         tags.add("contact");
         paths.add("/contact");
       }
+      if (slug === "privacy") {
+        tags.add("legal");
+        tags.add("page:privacy");
+        paths.add("/privacy");
+      }
+      if (slug === "cookies") {
+        tags.add("legal");
+        tags.add("page:cookies");
+        paths.add("/cookies");
+      }
       if (slug === "site-theme") {
         tags.add("theme");
         // Theme CSS is injected in the root layout — refresh all routes.
@@ -60,11 +70,21 @@ function resolveFromPostType(postType: string, slug?: string) {
         paths.add("/about");
         paths.add("/services");
         paths.add("/contact");
+        paths.add("/privacy");
+        paths.add("/cookies");
       }
       // Unknown pages: refresh home + common pages safely
       if (
         slug &&
-        !["about", "contact", "home", "front-page", "site-theme"].includes(slug)
+        ![
+          "about",
+          "contact",
+          "home",
+          "front-page",
+          "site-theme",
+          "privacy",
+          "cookies",
+        ].includes(slug)
       ) {
         tags.add("home");
         paths.add("/");

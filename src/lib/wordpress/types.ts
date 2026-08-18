@@ -199,6 +199,18 @@ export type GetContactPageResult = {
   } | null;
 };
 
+/** Privacy / Cookies (and similar) WordPress pages */
+export type LegalPageNode = {
+  title: string;
+  slug: string;
+  content: string | null;
+  featuredImage: WpMediaEdge;
+};
+
+export type GetLegalPageResult = {
+  page: LegalPageNode | null;
+};
+
 /** Shared contact details for header/footer */
 export type SiteContact = {
   phone: string;

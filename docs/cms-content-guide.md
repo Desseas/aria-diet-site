@@ -22,6 +22,8 @@ Edit everything in **WordPress Admin**. The public site (Next.js) updates after 
 | `/services/…` | **Services →** open that service |
 | `/campaigns/…` | **Campaigns →** open that campaign |
 | Brand colors | **Pages → Site Theme** |
+| `/privacy` | **Pages → Πολιτική Απορρήτου** (slug `privacy`) |
+| `/cookies` | **Pages → Πολιτική Cookies** (slug `cookies`) |
 | Phone / email in header & footer | **Pages → Contact** → Phone / Email |
 
 ---
@@ -165,6 +167,16 @@ This page is **not** in the public menu. Hover / soft / border tones are derived
 
 ---
 
+## 7. Privacy & Cookies — `/privacy` · `/cookies`
+
+**Path:** Pages → **Πολιτική Απορρήτου** (slug `privacy`) or **Πολιτική Cookies** (slug `cookies`)
+
+Edit the normal WordPress page **title** and **body**. That HTML is what the public site shows. Optional: set a Featured Image for the banner.
+
+Keep permalinks as `privacy` and `cookies`. Starter template text is seeded once — replace with lawyer-approved copy when ready.
+
+---
+
 ## FAQ & lists format
 
 **Lists** (Benefits, Process, Qualifications, Opening Hours):
@@ -203,7 +215,7 @@ Blank line between Q&A pairs.
 1. Edit the right item (table at the top).
 2. Fill fields → **Update** or **Publish**.
 3. Open the matching URL on the public site and hard-refresh if needed.
-4. Keep page slugs stable: Home (front page), `about`, `contact`.
+4. Keep page slugs stable: Home (front page), `about`, `contact`, `privacy`, `cookies`.
 5. Do **not** delete **Site Theme**.
 
 ---
@@ -215,7 +227,6 @@ These live in the Next.js code — ask a developer to change them:
 - Main menu labels / order (`Αρχική`, `About me`, …)
 - Brand name string in the header logo
 - Hardcoded hero title on the `/services` listing page
-- Legal pages (Privacy / Cookies) if not wired yet
 
 ---
 

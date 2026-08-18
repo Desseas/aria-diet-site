@@ -6,6 +6,7 @@ import type {
   GetCampaignsResult,
   GetContactPageResult,
   GetHomePageResult,
+  GetLegalPageResult,
   GetPagesResult,
   GetServiceBySlugResult,
   GetServicesResult,
@@ -182,6 +183,19 @@ export const GET_SITE_THEME = /* GraphQL */ `
   }
 `;
 
+export const GET_LEGAL_PAGE = /* GraphQL */ `
+  query GetLegalPage($uri: ID!) {
+    page(id: $uri, idType: URI) {
+      title
+      slug
+      content
+      featuredImage {
+        ${MEDIA_FIELDS}
+      }
+    }
+  }
+`;
+
 export const GET_CAMPAIGNS = /* GraphQL */ `
   query GetCampaigns {
     campaigns(first: 100) {
@@ -311,6 +325,16 @@ export function getSiteTheme() {
   return fetchGraphQL<GetSiteThemeResult>(GET_SITE_THEME, undefined, {
     tags: ["wordpress", "theme"],
   });
+}
+
+export function getLegalPage(slug: "privacy" | "cookies") {
+  return fetchGraphQL<GetLegalPageResult>(
+    GET_LEGAL_PAGE,
+    { uri: slug },
+    {
+      tags: ["wordpress", "pages", `page:${slug}`, "legal"],
+    },
+  );
 }
 
 export async function getSiteContact(): Promise<SiteContact> {
