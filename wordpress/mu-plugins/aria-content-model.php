@@ -177,10 +177,11 @@ add_action('acf/init', static function (): void {
 				'type'  => 'text',
 			],
 			[
-				'key'   => 'field_service_cta_button_url',
-				'label' => 'CTA Button URL',
-				'name'  => 'cta_button_url',
-				'type'  => 'url',
+				'key'          => 'field_service_cta_button_url',
+				'label'        => 'CTA Button URL',
+				'name'         => 'cta_button_url',
+				'type'         => 'text',
+				'instructions' => 'Site path or full URL, e.g. /contact',
 			],
 			[
 				'key'   => 'field_service_seo_title',
