@@ -60,18 +60,42 @@ export function SplitFeature({
         </div>
 
         <div
-          className={`relative min-h-[320px] sm:min-h-[420px] ${
-            dark ? "bg-dark-fallback" : "bg-soft-fallback"
+          className={`relative min-h-[320px] overflow-hidden sm:min-h-[420px] ${
+            dark ? "bg-dark-band" : "bg-soft-fallback"
           }`}
         >
           {image ? (
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
+            <>
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              {dark ? (
+                <>
+                  {/* Light generic fade into the text column */}
+                  <div
+                    aria-hidden
+                    className={`pointer-events-none absolute inset-y-0 w-16 sm:w-24 ${
+                      reverse
+                        ? "right-0 bg-gradient-to-l from-dark-band to-transparent"
+                        : "left-0 bg-gradient-to-r from-dark-band to-transparent"
+                    }`}
+                  />
+                  {/* Subtle outer edge */}
+                  <div
+                    aria-hidden
+                    className={`pointer-events-none absolute inset-y-0 w-10 sm:w-14 ${
+                      reverse
+                        ? "left-0 bg-gradient-to-r from-dark-band/80 to-transparent"
+                        : "right-0 bg-gradient-to-l from-dark-band/80 to-transparent"
+                    }`}
+                  />
+                </>
+              ) : null}
+            </>
           ) : null}
         </div>
       </div>
