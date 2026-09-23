@@ -101,7 +101,7 @@ export default async function AboutPage() {
         <section className="bg-geo-pattern py-14 sm:py-20">
           <Container>
             <h2 className="text-2xl font-medium text-foreground sm:text-3xl">
-              Προσόντα
+              Εκπαίδευση & Εξειδίκευση
             </h2>
             <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {qualifications.map((item) => (
