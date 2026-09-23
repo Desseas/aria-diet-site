@@ -53,7 +53,7 @@ export default async function HomePage() {
   const faq = faqFromTextarea(fields?.faq);
 
   const heroTitle =
-    fields?.heroTitle?.trim() || "Η Υγιεινή Διατροφή όπως δεν την έχεις ξαναδεί!";
+    fields?.heroTitle?.trim() || "Διατροφή τόσο μοναδική όσο εσύ";
 
   return (
     <>
