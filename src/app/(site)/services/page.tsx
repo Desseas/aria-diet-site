@@ -24,7 +24,7 @@ export default async function ServicesPage() {
       <PageHero
         eyebrow="Υπηρεσίες"
         title="Διαιτολογικές Υπηρεσίες"
-        description="Δύο ξεκάθαρες διαδρομές — με χώρο να προστεθούν κι άλλες όταν χρειαστεί."
+        description="Επιλέξτε τη διατροφική υποστήριξη που ταιριάζει στις ανάγκες σας."
         image={resolveHeroImage(null, "services")}
       />
 
