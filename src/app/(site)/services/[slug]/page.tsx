@@ -12,19 +12,21 @@ import {
   linesFromTextarea,
   resolveWpImage,
 } from "@/lib/wordpress/content";
-import { getServiceBySlug, getServices } from "@/lib/wordpress/queries";
+import {
+  getServiceBySlug,
+  normalizeServiceSlug,
+} from "@/lib/wordpress/queries";
 
 type ServicePageProps = PageProps<"/services/[slug]">;
 
-export async function generateStaticParams() {
-  const data = await getServices();
-  return data.services.nodes.map((service) => ({ slug: service.slug }));
-}
+/** CMS-driven: always render on request so new Services are not stuck as 404. */
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
 }: ServicePageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = normalizeServiceSlug(rawSlug);
   const data = await getServiceBySlug(slug);
   const service = data.service;
 
@@ -47,15 +49,15 @@ export async function generateMetadata({
   return buildPageMetadata({
     title,
     description,
-    path: `/services/${slug}`,
+    path: `/services/${service.slug}`,
     image: image.src,
     absoluteTitle: true,
   });
 }
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
-  const { slug } = await params;
-  const data = await getServiceBySlug(slug);
+  const { slug: rawSlug } = await params;
+  const data = await getServiceBySlug(rawSlug);
   const service = data.service;
 
   if (!service) {

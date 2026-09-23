@@ -16,6 +16,9 @@ import {
 } from "@/lib/wordpress/content";
 import { getHomePage, getServices, getSiteContact } from "@/lib/wordpress/queries";
 
+/** New Services / CMS edits must show on Home without a redeploy. */
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getHomePage();
   const fields = data.page?.homeFields;

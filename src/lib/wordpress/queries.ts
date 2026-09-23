@@ -384,16 +384,64 @@ export function getCampaignBySlug(slug: string) {
 
 export function getServices() {
   return fetchGraphQL<GetServicesResult>(GET_SERVICES, undefined, {
+    // Always fresh — new Services must appear on /services without a redeploy.
+    revalidate: false,
     tags: ["wordpress", "services"],
   });
 }
 
-export function getServiceBySlug(slug: string) {
-  return fetchGraphQL<GetServiceBySlugResult>(
+/** Decode / trim WP slugs (handles %CE%xx Greek leftovers in the URL). */
+export function normalizeServiceSlug(raw: string): string {
+  let value = raw.trim();
+  try {
+    value = decodeURIComponent(value);
+  } catch {
+    // keep raw if malformed
+  }
+  return value.normalize("NFC");
+}
+
+/**
+ * Resolve a service by slug.
+ * Tries direct WPGraphQL SLUG lookup, then falls back to the services list
+ * so newly published posts are not stuck behind a cached 404.
+ */
+export async function getServiceBySlug(
+  rawSlug: string,
+): Promise<GetServiceBySlugResult> {
+  const slug = normalizeServiceSlug(rawSlug);
+
+  const direct = await fetchGraphQL<GetServiceBySlugResult>(
     GET_SERVICE_BY_SLUG,
     { slug },
     {
+      revalidate: false,
       tags: ["wordpress", "services", `service:${slug}`],
+    },
+  );
+
+  if (direct.service) {
+    return direct;
+  }
+
+  const list = await getServices();
+  const match = list.services.nodes.find(
+    (service) =>
+      normalizeServiceSlug(service.slug) === slug ||
+      service.slug === rawSlug.trim(),
+  );
+
+  if (!match) {
+    return { service: null };
+  }
+
+  // List cards omit full fields — fetch again with the canonical WP slug.
+  return fetchGraphQL<GetServiceBySlugResult>(
+    GET_SERVICE_BY_SLUG,
+    { slug: match.slug },
+    {
+      revalidate: false,
+      tags: ["wordpress", "services", `service:${match.slug}`],
     },
   );
 }

@@ -7,6 +7,9 @@ import { resolveHeroImage } from "@/lib/hero-fallbacks";
 import { buildPageMetadata } from "@/lib/seo";
 import { getServices } from "@/lib/wordpress/queries";
 
+/** Always reflect newly published Services from WordPress. */
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = buildPageMetadata({
   title: "Διαιτολογικές Υπηρεσίες",
   description:
