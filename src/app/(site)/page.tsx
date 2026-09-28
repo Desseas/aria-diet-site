@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { CtaSection } from "@/components/sections/CtaSection";
-import { HomeHero } from "@/components/sections/HomeHero";
+import { HomePersonHero } from "@/components/sections/HomePersonHero";
 import { HomeServices } from "@/components/sections/HomeServices";
 import { QuoteBand } from "@/components/sections/QuoteBand";
 import { SocialCta } from "@/components/sections/SocialCta";
@@ -27,9 +27,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const description =
     fields?.seoDescription?.trim() ||
     "Διατροφική καθοδήγηση με επίκεντρο την υγεία, την ισορροπία και την αυτοπεποίθηση.";
+  // Prefer her portrait for social previews when available.
   const image = resolveHeroImage(
-    resolveWpImage(fields?.heroImage, title),
-    "home",
+    resolveWpImage(fields?.aboutImage, title) ??
+      resolveWpImage(fields?.heroImage, title),
+    "homeAbout",
   );
 
   return buildPageMetadata({
@@ -54,38 +56,26 @@ export default async function HomePage() {
 
   const heroTitle =
     fields?.heroTitle?.trim() || "Διατροφή τόσο μοναδική όσο εσύ";
+  const portrait = resolveContentImage(
+    resolveWpImage(fields?.aboutImage, fields?.aboutTitle ?? heroTitle),
+    "homeAbout",
+  );
 
   return (
     <>
-      <HomeHero
-        eyebrow={fields?.heroEyebrow}
+      <HomePersonHero
+        eyebrow={fields?.heroEyebrow ?? fields?.aboutEyebrow}
         title={heroTitle}
         description={fields?.heroDescription}
+        aboutText={fields?.aboutText}
         primaryLabel={fields?.heroPrimaryLabel}
         primaryHref={fields?.heroPrimaryUrl}
         secondaryLabel={fields?.heroSecondaryLabel}
         secondaryHref={fields?.heroSecondaryUrl}
-        image={resolveHeroImage(
-          resolveWpImage(fields?.heroImage, heroTitle),
-          "home",
-        )}
+        aboutLabel={fields?.aboutButtonLabel}
+        aboutHref={fields?.aboutButtonUrl}
+        image={portrait}
       />
-
-      {(fields?.aboutTitle || fields?.aboutText) && (
-        <SplitFeature
-          eyebrow={fields?.aboutEyebrow}
-          title={fields?.aboutTitle?.trim() || "About me"}
-          description={fields?.aboutText}
-          ctaLabel={fields?.aboutButtonLabel}
-          ctaHref={fields?.aboutButtonUrl}
-          image={resolveContentImage(
-            resolveWpImage(fields?.aboutImage, fields?.aboutTitle ?? "About"),
-            "homeAbout",
-          )}
-          reverse
-          dark
-        />
-      )}
 
       <HomeServices
         eyebrow={fields?.servicesEyebrow}
