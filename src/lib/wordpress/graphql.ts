@@ -43,17 +43,22 @@ export async function fetchGraphQL<T>(
   let response: Response;
 
   try {
+    // Next.js rejects cache tags together with `cache: "no-store"`.
+    // Keep those modes mutually exclusive.
     response = await fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ query, variables }),
-      next: {
-        revalidate: revalidate === false ? undefined : revalidate,
-        tags,
-      },
-      ...(revalidate === false ? { cache: "no-store" as const } : {}),
+      ...(revalidate === false
+        ? { cache: "no-store" as const }
+        : {
+            next: {
+              revalidate,
+              tags,
+            },
+          }),
     });
   } catch (error) {
     const detail = error instanceof Error ? error.message : "Unknown network error";

@@ -384,8 +384,9 @@ export function getCampaignBySlug(slug: string) {
 
 export function getServices() {
   return fetchGraphQL<GetServicesResult>(GET_SERVICES, undefined, {
-    // Always fresh — new Services must appear on /services without a redeploy.
-    revalidate: false,
+    // Short TTL + force-dynamic pages keep new Services visible quickly.
+    // Webhook revalidateTag("services") still clears this on publish.
+    revalidate: 30,
     tags: ["wordpress", "services"],
   });
 }
@@ -415,7 +416,7 @@ export async function getServiceBySlug(
     GET_SERVICE_BY_SLUG,
     { slug },
     {
-      revalidate: false,
+      revalidate: 30,
       tags: ["wordpress", "services", `service:${slug}`],
     },
   );
@@ -440,7 +441,7 @@ export async function getServiceBySlug(
     GET_SERVICE_BY_SLUG,
     { slug: match.slug },
     {
-      revalidate: false,
+      revalidate: 30,
       tags: ["wordpress", "services", `service:${match.slug}`],
     },
   );
